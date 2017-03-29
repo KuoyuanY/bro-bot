@@ -39,6 +39,8 @@ module.exports = {
     synonym: /bro synonym/i,
     mute: /bro mute/i,
     unmute: /bro unmute/i,
+    upvote: /bro \+\+/i,
+    downvote: /bro \-\-/i,
     //answers to why
     reasons : [
       "Don't ask me why, tis just the way it is", "WHY? well BECAUSE!", "because Trump became the president", "because I love bernie sanders",
@@ -208,7 +210,8 @@ module.exports = {
     merit: "are you worthless? \n you have absolutely no merit to society",
     brownie: "hehe brownie, good times",
     fbla: "FUCK RIVERHILL"
-  }
+  },
+  groups : {}
 
 
 }

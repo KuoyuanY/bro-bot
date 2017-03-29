@@ -22,7 +22,8 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
 
   api.listen((err, message) => {
     function text(content, exp, TheMessage, length){ //checks if the regex matches, if so, will send a text
-      //if random number is neede
+      //if random number is needed
+      //length represents range of random number
       if(exp.test(content)){
         var ran = Math.floor(Math.random() * (length))
         api.sendMessage(TheMessage[ran], message.threadID)
@@ -31,7 +32,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     }
     function easter(content, exp, TheMessage){//for easter egg
       if(exp.test(content)){
-        api.sendMessage(TheMessage,message.threadID)
+        api.sendMessage(TheMessage,message.threadID) //sends message to the group
       }
     }
     function synMashapeWord(url){
@@ -42,7 +43,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
       .end((result)=> {
         if(result.statusCode == 200){//if no error in status code
           if(result.body.synonyms.length>0){
-            for(let i = 0; i < result.body.synonyms.length; i ++){
+            for(let i = 0; i < result.body.synonyms.length; i ++){//adds each synonym in the list to the message
               if(i === result.body.synonyms.length-1)
                 msg += result.body.synonyms[i]
               else
@@ -64,8 +65,8 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         .header("Accept", "application/json")//set header
         .end((result)=> {
           if(result.statusCode == 200){//if no error in status code
-            if(result.body.definitions.length>=2){
-              setTimeout(()=>{
+            if(result.body.definitions.length>=2){//returns the first 2 definitions
+              setTimeout(()=>{//makes sure definition 2 comes after definition 1
                 api.sendMessage("-Definition 2: "+result.body.definitions[1].definition+ "\n-Part of Speech: " +result.body.definitions[1].partOfSpeech ,message.threadID)
               }, 300)
               api.sendMessage("-Definition 1: "+result.body.definitions[0].definition+ "\n-Part of Speech: " +result.body.definitions[0].partOfSpeech ,message.threadID)
@@ -82,7 +83,25 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
 
         })
       }
+      function IsAGroup(groupID){
+        pi.getThreadInfo(groupID, (err, info) => {
+          return info.participantIDs.length>2
+        })
+      }
 
+      function vote(upOrDown, groupID){
+        api.getThreadInfo(groupID, (err, info) => {
+          for(let i = 0; i < info.participantIDs.length; i ++){
+
+          }
+        })
+      }
+
+      // if(func.triggers.upvote.test(message.body)){//checks for the command upvote
+      //
+      // } else if(func.triggers.downvote.test(message.body){//checks for the command downvote
+      //
+      // }
       if(func.triggers.mute.test(message.body)){//checks if bot is muted
         muted = true
         api.sendMessage("bot muted",message.threadID)
@@ -197,14 +216,10 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
       }
       if(func.triggers.answer.test(message.body)){ //implements wolfram alpha short answer api
         const mess = message.body.split(" answer ")
-        var form = mess[1]
-        var question = form.replace(/ /g, "+")
-        if (question[question.length-1]==="?")
-        question = question.replace("?", "%3f")
-        else
-        question +="%3f"
+        var question = encodeURIComponent(mess[1]) // question to be put in url
+        console.log(question)
         const url = "http://api.wolframalpha.com/v1/result?appid=T33VKT-H638KU9PEE&i=" + question
-        request.get(url, (error, response, body) => {
+        request.get(url, (error, response, body) => {//gets response from wolfram alpha short answer api
           if(body.toString()==="Wolfram|Alpha did not understand your input"){
             api.sendMessage("No results found for "+"\"" +form + "\"", message.threadID)
           }
@@ -213,7 +228,6 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
           } else
           api.sendMessage(body, message.threadID)
 
-          // Continue with your processing here.
 
         })
       }
