@@ -30,6 +30,15 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
       }
 
     }
+    function interval(counter, duration){//recursively sets time interval
+      if(counter < 2*duration){
+        setTimeout(function(){
+          counter++
+          api.changeThreadColor(ranColor(), message.threadID)//changes chat color
+          interval(counter, duration)//recursion
+        }, 1000)//changes every half a second
+      }
+    }
     function easter(content, exp, TheMessage){//for easter egg
       if(exp.test(content)){
         api.sendMessage(TheMessage,message.threadID) //sends message to the group
@@ -216,8 +225,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
       }
       if(func.triggers.answer.test(message.body)){ //implements wolfram alpha short answer api
         const mess = message.body.split(" answer ")
-        var question = encodeURIComponent(mess[1]) // question to be put in url
-        console.log(question)
+        const question = encodeURIComponent(mess[1]) // question to be put in url
         const url = "http://api.wolframalpha.com/v1/result?appid=T33VKT-H638KU9PEE&i=" + question
         request.get(url, (error, response, body) => {//gets response from wolfram alpha short answer api
           if(body.toString()==="Wolfram|Alpha did not understand your input"){
@@ -319,15 +327,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
   }
 
   if(func.triggers.hitTheLights.test(message.body)){
-    const delay = 500
-    for (let i = 0; i < 10; i++) { // Need block scoping for timeout
-      setTimeout(() => {
-        api.changeThreadColor(ranColor(), message.threadID,(err) => {
-          if(err) return console.error(err)
-        })
-
-      }, delay + i*delay+ i) // Queue color changes
-    }
+    interval(0,5)
   }
 
   if(func.triggers.help.test(message.body)){// description of what bot can do
