@@ -14,7 +14,6 @@ function ranColor(){
   return color
 }
 
-
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {//reads appstate file and logs in
   if(err) {
     return console.error(err)//if error occurs, return details
