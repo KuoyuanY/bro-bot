@@ -14,6 +14,7 @@ function ranColor(){
   return color
 }
 
+
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {//reads appstate file and logs in
   if(err) {
     return console.error(err)//if error occurs, return details
@@ -35,7 +36,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         setTimeout(function(){
           counter++
           eval(code)//executes a line of code
-          interval(counter, duration, string)//recursion
+          interval(counter, duration, code)//recursion
         }, 500)//changes every half a second
       }
     }
@@ -147,6 +148,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         }
         api.sendMessage(msg, message.threadID)
       }
+
       easter(message.body, func.triggers.broCode, func.easterEggs.broCode)
       easter(message.body, func.triggers.bruh, func.easterEggs.bruh)
       easter(message.body, func.triggers.wasabi, func.easterEggs.wasabi)
