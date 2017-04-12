@@ -158,7 +158,7 @@ module.exports = {
       honest: "unpredictable response. But will be my most honest answers. Guaranteed",
       search: "searches facebook users for a closest match to the input name",
       gtfo: "removes the bot from group chat",
-      kick: "removes a user from the group chat",
+      kick: "removes a user from the group chat. if there's number after the command, i.e. bro kick PERSON 5, the person will be kicked for 5 seconds then added back to the chat.",
       add: "adds a user to the group chat",
       wakeUp: "messages the user 'hey wake up!' 10 times if the user is in current group chat. If not, will message 'Someone wants me to wake you up'",
       set: "sets the nickname for a user",
