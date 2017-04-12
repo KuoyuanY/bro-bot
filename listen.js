@@ -129,6 +129,8 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     }
 
     // if(func.triggers.upvote.test(message.body)){//checks for the command upvote
+    //   const name = message.body.split(" ")[2]
+    //
     //
     // } else if(func.triggers.downvote.test(message.body){//checks for the command downvote
     //
@@ -214,20 +216,17 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         const arr = message.body.split(" nickname") //array of split string
         const nick = arr[1] //the desired nickname for a user
         const name = arr[0].substring(8)
-        var exists = false
-        api.getUserID(name ,(err, data) => {
-          const id = data[0].userID
-          api.getThreadInfo(message.threadID, (err, info)=>{
-            for(let i = 0; i < info.participantIDs.length; i ++){
-              if(info.participantIDs[i]==id){
-                exists = true //the user is in this group chat
+        api.getUserID(name, (err, data)=> {
+
+            const id = data[0].userID
+            existsInGroup(id, message.threadID, (exists)=>{
+              if(exists){
                 api.changeNickname(nick, message.threadID, id)
+              }else{
+                api.sendMessage(name+" isn't in this groupchat",message.threadID)
               }
-            }
-            if(exists === false){
-              api.sendMessage(name+" isn't in this groupchat",message.threadID)
-            }
-          })
+            })
+
         })
       }
     }
@@ -267,32 +266,25 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     if(func.triggers.wake.test(message.body)){ //if calls bro wake up
       const delay = 500
       const name = message.body.substring(message.body.search(func.triggers.wake)+12)
-      var exists = false
       api.getUserID(name, (err, data) =>{
         const id = data[0].userID //user id for input name
-        api.getThreadInfo(message.threadID, (err, info)=>{
-          for(let i = 0; i < info.participantIDs.length; i ++){
-            if(info.participantIDs[i]==id){
-              exists = true //the user is in this group chat
-              api.sendMessage("messaged " + name + " 10 times" ,message.threadID)
-              for(let i= 0; i < 10; i++ ){
-                setTimeout(() => { //delay between messages
-                  api.sendMessage("hey, wake up!", id)
+        existsInGroup(id, message.threadID, (exists)=>{
+          if(exists){//user is in this chat
+            api.sendMessage("messaged " + name + " 10 times" ,message.threadID)
+            for(let i= 0; i < 10; i++ ){
+              setTimeout(() => { //delay between messages
+                api.sendMessage("hey, wake up!", id)
 
-                }, delay + i*delay)
-              }
+              }, delay + i*delay)
             }
+          }else{ //the user isn't in this group chat
+            var senderID = message.senderID
+            api.getUserInfo(senderID, (err, info)=>{
+              api.sendMessage("Hi, "+ info[senderID].name+" wanted me to wake you up", id)
+              api.sendMessage("messaged " + name, message.threadID)
+            })
           }
-          if(exists ===false) { //the user isn't in this group chat
-          var senderID = message.senderID
-          api.getUserInfo(senderID, (err, info)=>{
-            api.sendMessage("Hi, "+ info[senderID].name+" wanted me to wake you up", id)
-            api.sendMessage("messaged " + name, message.threadID)
-          })
-
-        }
-      })
-
+        })
     })
   }
 
@@ -329,31 +321,23 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
           api.sendMessage(name + " is not in this groupchat", message.threadID)
         }
       })
-
     })
   }
 
   if(func.triggers.add.test(message.body)){ //if calls bro add
     const name = message.body.substring(message.body.search(func.triggers.add)+8)
-    var exists = false
     api.getUserID(name, (err, data) =>{
       const id = data[0].userID //user id for input name
-      api.getThreadInfo(message.threadID, (err, info)=>{
-        for(let i = 0; i < info.participantIDs.length; i ++){
-          if(info.participantIDs[i]==id){ //the user is in this group chat
-            exists = true
-            api.sendMessage(name + " is already in this groupchat", message.threadID)
-
-          }
+      existsInGroup(id, message.threadID, (exists)=>{
+            if(exists){ //the user is in this group chat
+              api.sendMessage(name + " is already in this groupchat", message.threadID)
+            }else{ //the user isn't in this group chat
+          setTimeout(() => { //delay between messages
+            api.sendMessage("welcome, " + name, message.threadID)
+          }, 1500)
+          api.addUserToGroup(id, message.threadID)
         }
-        if(exists === false){ //the user isn't in this group chat
-        setTimeout(() => { //delay between messages
-          api.sendMessage("welcome to " + info.name +", " + name, message.threadID)
-        }, 1500)
-        api.addUserToGroup(id, message.threadID)
-      }
     })
-
   })
 }
 
