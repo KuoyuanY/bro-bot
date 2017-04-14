@@ -4,6 +4,8 @@ const func = require('./functions')
 const request = require("request")
 const http = require('http')
 const unirest = require('unirest')
+const wordKey = "API key"
+const wolframKey = "wolframKey"
 var muted = false
 function ranColor(){
   const letters = '0123456789ABCDEF'
@@ -50,7 +52,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     function synMashapeWord(url){
       var msg = ""
       unirest.get(url)
-      .header("X-Mashape-Key", "your key")//set header
+      .header("X-Mashape-Key", wordKey)//set header
       .header("Accept", "application/json")//set header
       .end((result)=> {
         if(result.statusCode == 200){//if no error in status code
@@ -74,7 +76,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
 
     function defMashapeWord(url){//request to Mashape server
       unirest.get(url)
-      .header("X-Mashape-Key", "your key")//set header
+      .header("X-Mashape-Key", wordKey)//set header
       .header("Accept", "application/json")//set header
       .end((result)=> {
         if(result.statusCode == 200){//if no error in status code
@@ -250,13 +252,13 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     if(func.triggers.answer.test(message.body)){ //implements wolfram alpha short answer api
       const mess = message.body.split(" answer ")
       const question = encodeURIComponent(mess[1]) // question to be put in url
-      const url = "http://api.wolframalpha.com/v1/result?appid=yourappid" + question
+      const url = `http://api.wolframalpha.com/v1/result?appid=${wolframKey}` + question
       request.get(url, (error, response, body) => {//gets response from wolfram alpha short answer api
         if(body.toString()==="Wolfram|Alpha did not understand your input"){
           api.sendMessage("No results found for "+"\"" +question + "\"", message.threadID)
         }
         else if (body.toString().match(/wolfram alpha/i) ){
-          api.sendMessage(body.toString().replace("Wolfram Alpha", "Bro Kuoyuan"), message.threadID)
+          api.sendMessage(body.toString().replace("Wolfram Alpha", "I"), message.threadID)
         } else
         api.sendMessage(body, message.threadID)
 

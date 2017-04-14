@@ -86,7 +86,7 @@ module.exports = {
     people : [
       "Donald Trump", "Someone better looking than you",
       "Someone you don't know", "There's no such person",
-      "My mom", "Kuoyuan!", "IT'S KUOYUAN!!! ", "Ben's brother's neighbor's litter sister's teacher's dog",
+      "My mom", "Kuoyuan!", "IT'S KUOYUAN!!! ", "Not me.", "Ben's brother's neighbor's litter sister's teacher's dog",
       "definitely not Kuoyuan", "I seriously have no clue" ,"Give me a break, ask someone else",
       "you know who would know that? \nnot me, so gtfo", "uhhh Steve Jobs",
       "William Gates", "Bill Howard Taft", "Bill Shakespeare", "William Nye",
