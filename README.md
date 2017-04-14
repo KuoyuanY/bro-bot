@@ -13,8 +13,8 @@ Go into the repository and install all dependencies:
 $ npm install
 ```
 Create a login.js file that contains your login credentials for Facebook
-```
-onst fs = require("fs");
+```javascript
+const fs = require("fs");
 const login = require("facebook-chat-api");
 
 login({email: "YOUR EMAIL", password: "YOUR PASSWORD"}, (err, api) => {
@@ -28,7 +28,7 @@ Run login.js to generate appstate.json file
 node login.js
 ```
 In listen.js file, change the API keys to your own API keys
-```
+```javascript
 const wordKey = "API key"
 const wolframKey = "wolframKey"
 ```
