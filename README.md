@@ -3,7 +3,7 @@ facebook chat bot that responds to messages in group chat.
 uses wolfram alpha short answer API to answer users' questions.
 uses mashape word API to define and find synonyms of input word.
 
-##Set up
+## Set up
 First clone the repository:
 ```
 $ git clone https://github.com/y9y9l5m6/bro-bot.git
