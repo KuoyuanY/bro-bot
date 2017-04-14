@@ -12,15 +12,10 @@ Go into the repository and install all dependencies:
 ```
 $ npm install
 ```
-Create a login.js file that contains your login credentials for Facebook
+Go into login.js and enter your email and password:
 ```javascript
-const fs = require("fs");
-const login = require("facebook-chat-api");
-
 login({email: "YOUR EMAIL", password: "YOUR PASSWORD"}, (err, api) => {
     if(err) return console.error(err);
-
-    fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
 });
 ```
 Run login.js to generate appstate.json file
