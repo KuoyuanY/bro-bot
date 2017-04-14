@@ -50,7 +50,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     function synMashapeWord(url){
       var msg = ""
       unirest.get(url)
-      .header("X-Mashape-Key", "D7yGU6OLGPmshUwa3vJ04IQEOfrap1ty17OjsnRhE252JMLpko")//set header
+      .header("X-Mashape-Key", "your key")//set header
       .header("Accept", "application/json")//set header
       .end((result)=> {
         if(result.statusCode == 200){//if no error in status code
@@ -74,7 +74,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
 
     function defMashapeWord(url){//request to Mashape server
       unirest.get(url)
-      .header("X-Mashape-Key", "D7yGU6OLGPmshUwa3vJ04IQEOfrap1ty17OjsnRhE252JMLpko")//set header
+      .header("X-Mashape-Key", "your key")//set header
       .header("Accept", "application/json")//set header
       .end((result)=> {
         if(result.statusCode == 200){//if no error in status code
@@ -250,7 +250,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     if(func.triggers.answer.test(message.body)){ //implements wolfram alpha short answer api
       const mess = message.body.split(" answer ")
       const question = encodeURIComponent(mess[1]) // question to be put in url
-      const url = "http://api.wolframalpha.com/v1/result?appid=T33VKT-H638KU9PEE&i=" + question
+      const url = "http://api.wolframalpha.com/v1/result?appid=yourappid" + question
       request.get(url, (error, response, body) => {//gets response from wolfram alpha short answer api
         if(body.toString()==="Wolfram|Alpha did not understand your input"){
           api.sendMessage("No results found for "+"\"" +question + "\"", message.threadID)
