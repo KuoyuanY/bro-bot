@@ -146,7 +146,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     if(!muted){
       if(func.triggers.porn.test(message.body)){
         const msg = {
-          attachment: fs.createReadStream(__dirname + '/porn.png')
+          attachment: fs.createReadStream(__dirname + '/easter.png')
         }
         api.sendMessage(msg, message.threadID)
       }
