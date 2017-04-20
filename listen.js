@@ -32,7 +32,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         api.sendMessage(TheMessage[ran], message.threadID)
       }
     }
-    
+
     function interval(counter, duration, code){//recursively sets time interval for code to be processed
       if(counter < 2*duration){
         setTimeout(function(){
@@ -156,6 +156,12 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
       if(func.triggers.wtf.test(message.body)){
         const msg = {
           attachment: fs.createReadStream(__dirname + '/wtf.png')
+        }
+        api.sendMessage(msg, message.threadID)
+      }
+      if(func.triggers.holyShit.test(message.body)){
+        const msg = {
+          attachment: fs.createReadStream(__dirname + '/holyshit.png')
         }
         api.sendMessage(msg, message.threadID)
       }
