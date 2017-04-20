@@ -32,8 +32,8 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         api.sendMessage(TheMessage[ran], message.threadID)
       }
     }
-
-    function interval(counter, duration, code){//recursively sets time interval
+    
+    function interval(counter, duration, code){//recursively sets time interval for code to be processed
       if(counter < 2*duration){
         setTimeout(function(){
           counter++
@@ -146,13 +146,20 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     }
     //checks for easter eggs and sends messages
     if(!muted){
+      //These are picture easter eggs
       if(func.triggers.porn.test(message.body)){
         const msg = {
           attachment: fs.createReadStream(__dirname + '/easter.png')
         }
         api.sendMessage(msg, message.threadID)
       }
-
+      if(func.triggers.wtf.test(message.body)){
+        const msg = {
+          attachment: fs.createReadStream(__dirname + '/wtf.png')
+        }
+        api.sendMessage(msg, message.threadID)
+      }
+      //These are message easter eggs
       easter(message.body, func.triggers.broCode, func.easterEggs.broCode)
       easter(message.body, func.triggers.bruh, func.easterEggs.bruh)
       easter(message.body, func.triggers.wasabi, func.easterEggs.wasabi)
