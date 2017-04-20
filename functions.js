@@ -11,17 +11,15 @@ module.exports = {
     answer : /bro answer/i,
     hitTheLights : /bro hit the lights/i,
     help : /bro help$/i,
-    hi: /^hi bro/i,
-    hey: /^hey bro/i,
-    sup: /sup bro/i,
-    yo: /yo bro/i,
-    hello: /hello bro/i,
+    greet: /^hi bro|^hey bro|up bro|yo bro|hello bro|fuck you bro/i,
     merit : /merit/i,
     mank : /mank\b/i,
     porn : /porn/i,
     cuck : /cuck/i,
     wasabi : /wasabi/i,
     bruh : /bruh/i,
+    wtf : /wtf|what the fuck|dafuk/i,
+    holyShit : /holy shit/i,
     city : /city/i,
     state : /state/i,
     country : /country/i,
@@ -165,7 +163,8 @@ module.exports = {
       define: "returns the best definitions for the input word",
       synonym: "returns synonyms for the input word",
       mute: "mutes the bot's easter eggs",
-      unmute: "unmutes the bot's easter eggs"
+      unmute: "unmutes the bot's easter eggs",
+      greet: "say hello, hi, hey, etc. to me"
 
     },
     basic: `Hi people of this group chat, I am a facebook chat bot. The commands to use me are

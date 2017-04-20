@@ -33,7 +33,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
       }
     }
 
-    function interval(counter, duration, code){//recursively sets time interval for code to be processed
+    function interval(counter, duration, code){//recursively sets time interval
       if(counter < 2*duration){
         setTimeout(function(){
           counter++
@@ -190,9 +190,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     easter(message.body, func.commands.set, func.triggers.commandExplanation.set)
     easter(message.body, func.commands.define, func.triggers.commandExplanation.define)
     easter(message.body, func.commands.synonym, func.triggers.commandExplanation.synonym)
-    if(func.triggers.hi.test(message.body) || func.triggers.hey.test(message.body) ||
-    func.triggers.sup.test(message.body) || func.triggers.hello.test(message.body) ||
-    func.triggers.yo.test(message.body)){
+    if(func.triggers.greet.test(message.body)){
       var ran = Math.floor(Math.random() * func.triggers.greetings.length)
       var aMessage = func.triggers.greetings
       api.sendMessage(aMessage[ran], message.threadID)
@@ -212,6 +210,11 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     && !func.triggers.where.test(message.body) && !func.triggers.howMuch.test(message.body)
     && !func.triggers.how.test(message.body) && !func.triggers.who.test(message.body)){
       text(message.body, func.triggers.honestAnswer, func.triggers.answers,func.triggers.answers.length)
+    }
+
+
+    if( ){//kicks user then adds back for however many times in the input
+
     }
 
     if(func.triggers.define.test(message.body)){//checking for bro define
