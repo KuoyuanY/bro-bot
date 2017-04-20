@@ -166,6 +166,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         api.sendMessage(msg, message.threadID)
       }
       //These are message easter eggs
+      easter(message.body, func.triggers.konami, func.easterEggs.konami)
       easter(message.body, func.triggers.broCode, func.easterEggs.broCode)
       easter(message.body, func.triggers.bruh, func.easterEggs.bruh)
       easter(message.body, func.triggers.wasabi, func.easterEggs.wasabi)

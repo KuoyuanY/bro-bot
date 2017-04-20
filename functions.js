@@ -11,14 +11,19 @@ module.exports = {
     answer : /bro answer/i,
     hitTheLights : /bro hit the lights/i,
     help : /bro help$/i,
-    greet: /^hi bro|^hey bro|up bro|yo bro|hello bro|fuck you bro/i,
+    hi: /^hi bro/i,
+    hey: /^hey bro/i,
+    sup: /sup bro/i,
+    yo: /yo bro/i,
+    konami: /konami code/i,
+    hello: /hello bro/i,
     merit : /merit/i,
     mank : /mank\b/i,
     porn : /porn/i,
     cuck : /cuck/i,
     wasabi : /wasabi/i,
     bruh : /bruh/i,
-    wtf : /wtf|what the fuck|dafuk/i,
+    wtf : /wtf/i,
     holyShit : /holy shit/i,
     city : /city/i,
     state : /state/i,
@@ -208,7 +213,8 @@ module.exports = {
     mank: "who you calling a mank? \n you wanna go?",
     merit: "are you worthless? \n you have absolutely no merit to society",
     brownie: "hehe brownie, good times",
-    fbla: "FUCK RIVERHILL"
+    fbla: "FUCK RIVERHILL",
+    konami:"↑ ↑ ↓ ↓ ← → ← → B A"
   },
   groups : {}
 
