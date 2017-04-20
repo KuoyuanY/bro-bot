@@ -53,8 +53,8 @@ login({
 
         function synMashapeWord(url) {
             var msg = "";
-            unirest.get(url).header("X-Mashape-Key", wordKey); //set header
-                .header("Accept", "application/json"); //set header
+            unirest.get(url).header("X-Mashape-Key", wordKey) //set header
+                .header("Accept", "application/json") //set header
                 .end((result) => {
                     if (result.statusCode == 200) { //if no error in status code
                         if (result.body.synonyms.length > 0) {
@@ -75,8 +75,8 @@ login({
         }
 
         function defMashapeWord(url) { //request to Mashape server
-            unirest.get(url).header("X-Mashape-Key", wordKey); //set header
-                .header("Accept", "application/json"); //set header
+            unirest.get(url).header("X-Mashape-Key", wordKey) //set header
+                .header("Accept", "application/json") //set header
                 .end((result) => {
                     if (result.statusCode == 200) { //if no error in status code
                         if (result.body.definitions.length >= 2) { //returns the first 2 definitions
@@ -215,7 +215,8 @@ login({
             text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
         }
         if (func.triggers.cheat.test(message.body)) { //super command that can only be accessed with konami code
-            api.sendMessage("cheat activated on, you may now use the command bro mess up {user}", message.threadID);
+            api.sendMessage("cheat is being developed right now", message.threadID);
+
         }
         if (func.triggers.greet.test(message.body)) {
             var ran = Math.floor(Math.random() * func.triggers.greetings.length);
