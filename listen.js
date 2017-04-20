@@ -99,13 +99,49 @@ login({
                 });
         }
 
-        function isAGroup(groupID) {
+        function isAGroup(groupID) {//checks if a thread is a group
             api.getThreadInfo(groupID, (err, info) => {
                 return info.participantIDs.length > 2;
             });
         }
 
-        function existsInGroup(id, threadID, callback) {
+        function isBanned(id){//checks if a user is banned
+          for(let i = 0; i < banList.length; i++){
+            if(id==banList[i]){
+              return true;
+            }
+          }
+          return false;
+        }
+
+        function isCheating(id){//checks if a user is using konami code
+          for(let i = 0; i < cheatList.length; i++){
+            if(id==cheatList[i]){
+              return true;
+            }
+          }
+          return false;
+        }
+
+        function ban(id){//adds user to ban list
+          banList.push(id);
+        }
+
+        function unban(id){//unbans a user
+          var index = banList.indexOf(id);
+          banList.splice(index, 1);
+        }
+
+        function uncheat(id){//uncheat a user
+          var index = cheatList.indexOf(id);
+          cheatList.splice(index, 1);
+        }
+
+        function cheat(id){//adds user to cheat list
+          cheatList.push(id);
+        }
+
+        function existsInGroup(id, threadID, callback) {//checks if a user exists in a group
             var exist = false;
             api.getThreadInfo(threadID, (err, info) => {
                 for (let i = 0; i < info.participantIDs.length; i++) {
@@ -121,7 +157,7 @@ login({
             });
         }
 
-        function addGroups() {
+        function addGroups() {//stores groups
             var limit = 50;
             api.getThreadList(0, limit, 'inbox', (err, arr) => {
                 for (let i = 0; i < limit; i++) {
@@ -130,7 +166,7 @@ login({
             });
         }
 
-        function vote(upOrDown, groupID) {
+        function vote(upOrDown, groupID) {//up or down voting someone
             api.getThreadInfo(groupID, (err, info) => {
                 for (let i = 0; i < info.participantIDs.length; i++) {
 
