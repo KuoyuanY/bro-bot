@@ -28,6 +28,7 @@ module.exports = {
     country : /country/i,
     brownie : /brownie/i,
     fbla: /fbla/i,
+    ban: /bro ban/i,
     search: /bro search/i,
     add: /bro add/i,
     kick: /bro kick/i,
@@ -185,6 +186,7 @@ module.exports = {
     -bro synonym {word}
     -bro mute
     -bro unmute
+    -there is a secret command, you have to figure it out
     Tip: use bro help {command} to get details about a command`
   },
   commands : {
@@ -201,7 +203,7 @@ module.exports = {
     define: /bro help define/i,
     synonym: /bro help synonym/i,
     mute: /bro help mute/i,
-    unmute: /bro help unmute/i,
+    unmute: /bro help unmute/i
   },
   easterEggs : {
     broCode: "Bro Code\nArticle 1 - Bros before ho’s\nArticle 2 : A bro is always entitled to do something stupid, as long as the rest of his Bros are all doing it\nArticle 3 : If a Bro gets a dog, it must be at least as tall as his knee when full-grown\nArticle 4 : A Bro never divulges the existence of The Bro Code to a woman. It is a sacred document not to be shared with chicks for any reason… no, not even that reason\nArticle 10 : A Bro will drop whatever he’s doing and rush to help his Bro dump a chick\nArticle 31 - A bro must always oblige to fulfill the actions of a double-dog dare\nArticle 34 - Bros cannot make eye contact during a devils three-way\nArticle 62 - A bro that calls dibs first, has dibs \nArticle 78 - A Bro shall never rack jack his wingman\nArticle 104 - The mom of a bro is always off limits, unless she is a step-mom and she initiates it and/or is wearing one or more articles of leopard print clothing",
@@ -214,7 +216,7 @@ module.exports = {
     fbla: "FUCK RIVERHILL",
     konami:"↑ ↑ ↓ ↓ ← → ← → B A"
   },
-  groups : {}
+  groups : []
 
 
 }

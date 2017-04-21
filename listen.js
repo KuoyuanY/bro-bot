@@ -35,13 +35,13 @@ login({
             }
         }
 
-        function interval(counter, duration, code) { //recursively sets time interval
+        function repeat(counter, interval, duration, code) { //recursively sets time interval
             if (counter < 2 * duration) {
                 setTimeout(function() {
                         counter++;
                         eval(code); //executes a line of code
-                        interval(counter, duration, code); //recursion
-                    }, 500); //changes every half a second
+                        repeat(counter, interval, duration, code); //recursion
+                    }, interval); //changes every half a second
             }
         }
 
@@ -173,13 +173,7 @@ login({
                 }
             });
         }
-        // if(func.triggers.upvote.test(message.body)){//checks for the command upvote
-        //   const name = message.body.split(" ")[2];
-        //
-        //
-        // } else if(func.triggers.downvote.test(message.body){//checks for the command downvote
-        //
-        // }
+
         if (func.triggers.mute.test(message.body)) { //checks if bot is muted
             muted = true;
             api.sendMessage("bot muted", message.threadID);
@@ -251,9 +245,52 @@ login({
             text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
         }
         if (func.triggers.cheat.test(message.body)) { //super command that can only be accessed with konami code
-            api.sendMessage("cheat is being developed right now", message.threadID);
-
+          api.getUserInfo(message.senderID, (err, info)=>{
+            setTimeout(()=> {
+              unCheat(message.senderID);
+              api.sendMessage("Cheat deactivated for " + info[message.senderID],message.threadID);
+            }, 10000);
+            cheat(message.senderID);
+            api.sendMessage("Cheat activated. You have a 10 second window to use the super command: bro mess up {user}"
+            , message.threadID);
+          });
         }
+        if(func.triggers.ban.test(message.body)){//bans a user
+          if(message.senderID == 100006135968528){
+            const name = message.body.substring(8);
+            api.getUserID(name, (err, data)=>{
+              const id = data[0].userID;
+              if(banList.includes(id)){
+                api.sendMessage(name + " is already banned", message.threadID);
+              }else{
+                  setTimeout(function() {
+                    unban(id);
+                    api.sendMessage(name + " is no longer banned",message.threadID);
+                  }, 60000);
+                  ban(id);
+                  api.sendMessage("User successfully banned for a default time of a minute.", message.threadID);
+                }
+              });
+
+          } else {
+            api.sendMessage("You do not have permission to this command", message.threadID)
+          }
+        }
+
+        if(func.triggers.messUp.test(message.body)){//super command
+          if(isCheating(message.senderID)){
+            api.sendMessage("Still making the super command", message.threadID);
+          }else{
+            api.sendMessage("You do not have permission to this command", message.threadID);
+          }
+        }
+        // if(func.triggers.upvote.test(message.body)){//checks for the command upvote
+        //   const name = message.body.split(" ")[2];
+        //
+        //
+        // } else if(func.triggers.downvote.test(message.body){//checks for the command downvote
+        //
+        // }
         if (func.triggers.greet.test(message.body)) {
             var ran = Math.floor(Math.random() * func.triggers.greetings.length);
             var aMessage = func.triggers.greetings;
@@ -328,7 +365,7 @@ login({
                             }, delay + i * delay);
                         }
                     } else { //the user isn't in this group chat
-                        var senderID = message.senderID
+                        var senderID = message.senderID;
                         api.getUserInfo(senderID, (err, info) => {
                             api.sendMessage("Hi, " + info[senderID].name +
                                 " wanted me to wake you up", id);
@@ -396,7 +433,7 @@ login({
             api.sendMessage("good bye friends, I'll miss you all", message.threadID);
         }
         if (func.triggers.hitTheLights.test(message.body)) {
-            interval(0, 5, "api.changeThreadColor(ranColor(), message.threadID)");
+            repeat(0, 500, 5, "api.changeThreadColor(ranColor(), message.threadID)");
         }
         if (func.triggers.help.test(message.body)) { // description of what bot can do
             api.sendMessage(func.triggers.basic, message.threadID);
