@@ -257,21 +257,26 @@ login({
         }
         if(func.triggers.ban.test(message.body)){//bans a user
           if(message.senderID == 100006135968528){
-            const name = message.body.substring(8);
-            api.getUserID(name, (err, data)=>{
-              const id = data[0].userID;
-              if(banList.includes(id)){
-                api.sendMessage(name + " is already banned", message.threadID);
-              }else{
-                  setTimeout(function() {
-                    unban(id);
-                    api.sendMessage(name + " is no longer banned",message.threadID);
-                  }, 60000);
-                  ban(id);
-                  api.sendMessage("User successfully banned for a default time of a minute.", message.threadID);
-                }
-              });
-
+              const name = message.body.substring(8);
+              api.getUserID(name, (err, data)=>{
+                const id = data[0].userID;
+                  existsInGroup(id, message.threadID, (exists)=>{
+                    if(exists){
+                      if(banList.includes(id)){
+                        api.sendMessage(name + " is already banned", message.threadID);
+                      }else{
+                          setTimeout(function() {
+                            unban(id);
+                            api.sendMessage(name + " is no longer banned",message.threadID);
+                          }, 60000);
+                          ban(id);
+                          api.sendMessage("User successfully banned for a default time of a minute.", message.threadID);
+                        }
+                    }else{
+                      api.sendMessage(name + " isn't in this groupchat", message.threadID);
+                    }
+                    });
+                });
           } else {
             api.sendMessage("You do not have permission to this command", message.threadID)
           }
