@@ -245,6 +245,7 @@ login({
               && !func.triggers.how.test(message.body) && !func.triggers.who.test(message.body)) {
               text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
           }
+
           if (func.triggers.cheat.test(message.body)) { //super command that can only be accessed with konami code
             api.getUserInfo(message.senderID, (err, info)=>{
               setTimeout(()=> {
@@ -346,13 +347,15 @@ login({
           }
           if (func.triggers.answer.test(message.body)) { //implements wolfram alpha short answer api
               const mess = message.body.split(" answer ");
-              const question = encodeURIComponent(mess[1]); // question to be put in url
+              const original = mess[1];
+              const lmgtfyQuest = "http://lmgtfy.com/?q="+original.replace(/ /g, "+");
+              const question = encodeURIComponent(original); // question to be put in url
               const url = `http://api.wolframalpha.com/v1/result?appid=${wolframKey}` + question;
               request.get(url, (error, response, body) => { //gets response from wolfram alpha short answer api
                   if (body.toString() === "Wolfram|Alpha did not understand your input") {
-                      api.sendMessage("No results found for " + "\"" + question + "\"", message.threadID);
+                      api.sendMessage(lmgtfyQuest, message.threadID);
                   } else if (body.toString().match(/wolfram alpha/i)) {
-                      api.sendMessage(body.toString().replace("Wolfram Alpha", "I"), message.threadID);
+                      api.sendMessage(lmgtfyQuest, message.threadID);
                   } else
                   api.sendMessage(body, message.threadID);
               });
