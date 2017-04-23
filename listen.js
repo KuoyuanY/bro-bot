@@ -141,6 +141,14 @@ login({
           cheatList.push(id);
         }
 
+        function add(){
+
+        }
+
+        function kick(){
+
+        }
+
         function existsInGroup(id, threadID, callback) {//checks if a user exists in a group
             var exist = false;
             api.getThreadInfo(threadID, (err, info) => {
@@ -187,19 +195,19 @@ login({
               //These are picture easter eggs
               if (func.triggers.porn.test(message.body)) {
                   const msg = {
-                      attachment: fs.createReadStream(__dirname + '/easter.png')
+                      attachment: fs.createReadStream(__dirname + '/pics/easter.png')
                   }
                   api.sendMessage(msg, message.threadID);
               }
               if (func.triggers.wtf.test(message.body)) {
                   const msg = {
-                      attachment: fs.createReadStream(__dirname + '/wtf.png')
+                      attachment: fs.createReadStream(__dirname + '/pics/wtf.png')
                   };
                   api.sendMessage(msg, message.threadID);
               }
               if (func.triggers.holyShit.test(message.body)) {
                   const msg = {
-                      attachment: fs.createReadStream(__dirname + '/holyshit.png')
+                      attachment: fs.createReadStream(__dirname + '/pics/holyshit.png')
                   };
                   api.sendMessage(msg, message.threadID);
               }
@@ -304,12 +312,12 @@ login({
               api.sendMessage(aMessage[ran], message.threadID);
           }
           if (func.triggers.define.test(message.body)) { //checking for bro define
-              word = message.body.split(" define ")[1];
+              var word = message.body.split(" define ")[1];
               const url = "https://wordsapiv1.p.mashape.com/words/" + word + "/definitions";
               defMashapeWord(url); //calls requestMashape function
           }
           if (func.triggers.synonym.test(message.body)) { //checking for bro define
-              word = message.body.split(" synonym ")[1];
+              var word = message.body.split(" synonym ")[1];
               const url = "https://wordsapiv1.p.mashape.com/words/" + word + "/synonyms";
               synMashapeWord(url); //calls requestMashape function
           }
@@ -404,7 +412,7 @@ login({
                           if (!hasDuration) {
                               setTimeout(() => { //delay between messages
                                   api.removeUserFromGroup(id, message.threadID);
-                              }, 2000);
+                              }, 1000);
                               api.sendMessage("You don't belong here, " + name, message.threadID);
                           } else {
                               setTimeout(() => {;
@@ -428,7 +436,7 @@ login({
                       } else { //the user isn't in this group chat
                           setTimeout(() => { //delay between messages
                               api.sendMessage("welcome, " + name, message.threadID);
-                          }, 1500);
+                          }, 1000);
                           api.addUserToGroup(id, message.threadID);
                       }
                   });
@@ -438,7 +446,7 @@ login({
               var myID = api.getCurrentUserID();
               setTimeout(() => { //delay between messages
                   api.removeUserFromGroup(myID, message.threadID);
-              }, 1500);
+              }, 1000);
               api.sendMessage("good bye friends, I'll miss you all", message.threadID);
           }
           if (func.triggers.hitTheLights.test(message.body)) {
