@@ -36,7 +36,7 @@ login({
         }
 
         function repeat(counter, interval, duration, code) { //recursively sets time interval
-            if (counter < 2 * duration) {
+            if (counter < duration) {
                 setTimeout(function() {
                         counter++;
                         eval(code); //executes a line of code
@@ -70,6 +70,29 @@ login({
                         }
                     } else {
                         api.sendMessage("Error: No synonym found", message.threadID);
+                    }
+                });
+        }
+
+        function antMashapeWord(url) {
+            var msg = "";
+            unirest.get(url).header("X-Mashape-Key", wordKey) //set header
+                .header("Accept", "application/json") //set header
+                .end((result) => {
+                    if (result.statusCode == 200) { //if no error in status code
+                        if (result.body.antonyms.length > 0) {
+                            for (let i = 0; i < result.body.antonyms.length; i++) { //adds each synonym in the list to the message
+                                if (i === result.body.antonyms.length - 1)
+                                    msg += result.body.antonyms[i];
+                                else
+                                    msg += result.body.antonyms[i] + ", ";
+                            }
+                            api.sendMessage(msg, message.threadID);
+                        } else {
+                            api.sendMessage("Error: No antonyms found", message.threadID);
+                        }
+                    } else {
+                        api.sendMessage("Error: No antonyms found", message.threadID);
                     }
                 });
         }
@@ -133,6 +156,7 @@ login({
         }
 
         function uncheat(id){//uncheat a user
+          //To do: check if id exists in the array
           var index = cheatList.indexOf(id);
           cheatList.splice(index, 1);
         }
@@ -141,12 +165,33 @@ login({
           cheatList.push(id);
         }
 
-        function add(){
-
+        function kick(name){
+          api.getUserID(name, (err, data) => {
+              const id = data[0].userID; //user id for input name
+              existsInGroup(id, message.threadID, (check) => {
+                  if (check) {
+                      api.removeUserFromGroup(id, message.threadID);
+                  } else {
+                      api.sendMessage(name + " is not in this groupchat", message.threadID);
+                  }
+              });
+          });
         }
 
-        function kick(){
-
+        function add(name){
+          api.getUserID(name, (err, data) => {
+              const id = data[0].userID; //user id for input name
+              existsInGroup(id, message.threadID, (exists) => {
+                  if (exists) { //the user is in this group chat
+                      api.sendMessage(name + " is already in this groupchat", message.threadID);
+                  } else { //the user isn't in this group chat
+                      setTimeout(() => { //delay between messages
+                          api.sendMessage("welcome, " + name, message.threadID);
+                      }, 1);
+                      api.addUserToGroup(id, message.threadID);
+                  }
+              });
+          });
         }
 
         function existsInGroup(id, threadID, callback) {//checks if a user exists in a group
@@ -265,6 +310,7 @@ login({
               , message.threadID);
             });
           }
+
           if(func.triggers.ban.test(message.body)){//bans a user
             if(message.senderID == 100006135968528){
                 const name = message.body.substring(8);
@@ -275,7 +321,7 @@ login({
                         if(banList.includes(id)){
                           api.sendMessage(name + " is already banned", message.threadID);
                         }else{
-                            setTimeout(function() {
+                            setTimeout(() => {
                               unban(id);
                               api.sendMessage(name + " is no longer banned",message.threadID);
                             }, 600000);
@@ -292,9 +338,38 @@ login({
             }
           }
 
+          if(func.triggers.unban.test(message.body)){//unbans a user
+            if(message.senderID == 100006135968528){
+                const name = message.body.substring(10);
+                api.getUserID(name, (err, data)=>{
+                  const id = data[0].userID;
+                    existsInGroup(id, message.threadID, (exists)=>{
+                      if(exists){
+                        if(banList.includes(id)){
+                          unban(id);
+                          api.sendMessage(name + " is now unbanned", message.threadID);
+                        }else{
+                          api.sendMessage("User is not banned", message.threadID);
+                          }
+                      }else{
+                        api.sendMessage(name + " isn't in this groupchat", message.threadID);
+                      }
+                      });
+                  });
+            } else {
+              api.sendMessage("You do not have permission to this command", message.threadID)
+            }
+          }
+
           if(func.triggers.messUp.test(message.body)){//super command
+            const name = message.body.substring(11);
             if(isCheating(message.senderID)){
-              api.sendMessage("Still making the super command", message.threadID);
+              repeat(0, 500, 10, `
+                setTimeout(()=>{
+                  add(${name});
+                }, 250);
+                kick(${name});`);
+              unCheat(message.senderID);
             }else{
               api.sendMessage("You do not have permission to this command", message.threadID);
             }
@@ -311,16 +386,25 @@ login({
               var aMessage = func.triggers.greetings;
               api.sendMessage(aMessage[ran], message.threadID);
           }
+
           if (func.triggers.define.test(message.body)) { //checking for bro define
               var word = message.body.split(" define ")[1];
               const url = "https://wordsapiv1.p.mashape.com/words/" + word + "/definitions";
               defMashapeWord(url); //calls requestMashape function
           }
+
           if (func.triggers.synonym.test(message.body)) { //checking for bro define
               var word = message.body.split(" synonym ")[1];
               const url = "https://wordsapiv1.p.mashape.com/words/" + word + "/synonyms";
               synMashapeWord(url); //calls requestMashape function
           }
+
+          if (func.triggers.antonym.test(message.body)) { //checking for bro define
+              var word = message.body.split(" antonym ")[1];
+              const url = "https://wordsapiv1.p.mashape.com/words/" + word + "/antonyms";
+              antMashapeWord(url); //calls requestMashape function
+          }
+
           if (func.triggers.set.test(message.body)) { //checking for bro set
               if (func.triggers.nickname.test(message.body)) { //checking for keyword nickname
                   const arr = message.body.split(" nickname"); //array of split string
@@ -405,43 +489,24 @@ login({
                   var temp = arr.join(" ");
                   name = temp.substring(0, temp.length - 1 - duration.length);
               }
-              api.getUserID(name, (err, data) => {
-                  const id = data[0].userID; //user id for input name
-                  existsInGroup(id, message.threadID, (check) => {
-                      if (check) {
-                          if (!hasDuration) {
-                              setTimeout(() => { //delay between messages
-                                  api.removeUserFromGroup(id, message.threadID);
-                              }, 1000);
-                              api.sendMessage("You don't belong here, " + name, message.threadID);
-                          } else {
-                              setTimeout(() => {;
-                                  api.addUserToGroup(id, message.threadID);
-                              }, duration * 1000)
-                              api.removeUserFromGroup(id, message.threadID);
-                          }
-                      } else {
-                          api.sendMessage(name + " is not in this groupchat", message.threadID);
-                      }
-                  });
-              });
+              if (!hasDuration) {
+                  setTimeout(() => { //delay between messages
+                      kick(name);
+                  }, 1000);
+                  api.sendMessage("You don't belong here, " + name, message.threadID);
+              } else {
+                  setTimeout(() => {
+                      add(name);
+                  }, duration * 1000);
+                  kick(name);
+              }
           }
+
           if (func.triggers.add.test(message.body)) { //if calls bro add
               const name = message.body.substring(message.body.search(func.triggers.add) + 8);
-              api.getUserID(name, (err, data) => {
-                  const id = data[0].userID; //user id for input name
-                  existsInGroup(id, message.threadID, (exists) => {
-                      if (exists) { //the user is in this group chat
-                          api.sendMessage(name + " is already in this groupchat", message.threadID);
-                      } else { //the user isn't in this group chat
-                          setTimeout(() => { //delay between messages
-                              api.sendMessage("welcome, " + name, message.threadID);
-                          }, 1000);
-                          api.addUserToGroup(id, message.threadID);
-                      }
-                  });
-              });
+              add(name);
           }
+
           if (func.triggers.gtfo.test(message.body)) {
               var myID = api.getCurrentUserID();
               setTimeout(() => { //delay between messages
@@ -450,7 +515,7 @@ login({
               api.sendMessage("good bye friends, I'll miss you all", message.threadID);
           }
           if (func.triggers.hitTheLights.test(message.body)) {
-              repeat(0, 500, 5, "api.changeThreadColor(ranColor(), message.threadID)");
+              repeat(0, 500, 10, "api.changeThreadColor(ranColor(), message.threadID)");
           }
           if (func.triggers.help.test(message.body)) { // description of what bot can do
               api.sendMessage(func.triggers.basic, message.threadID);
