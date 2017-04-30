@@ -112,6 +112,7 @@ module.exports = {
       "you know who would know the answer to that? ME! but im not telling you",
       "0",
       "1",
+      "fo sho man. ayyy that's my {insert racial slur here}",
       "same answer as whether McDonald's will become the best fast food company",
       "same answer as whether I like food",
       "idk \nidc",

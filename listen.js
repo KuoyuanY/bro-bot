@@ -259,7 +259,6 @@ login({
               //These are message easter eggs
               easter(message.body, func.triggers.konami, func.easterEggs.konami);
               easter(message.body, func.triggers.broCode, func.easterEggs.broCode);
-              easter(message.body, func.triggers.bruh, func.easterEggs.bruh);
               easter(message.body, func.triggers.wasabi, func.easterEggs.wasabi);
               easter(message.body, func.triggers.cuck, func.easterEggs.cuck);
               easter(message.body, func.triggers.mank, func.easterEggs.mank);
