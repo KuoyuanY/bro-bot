@@ -12,7 +12,7 @@ var muted = false;
 function ranColor() {
     const letters = '0123456789ABCDEF';
     var color = '#';
-    for (var i = 0; i < 6; i++) { // Hex
+    for (let i = 0; i < 6; i++) { // Hex
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
@@ -155,10 +155,11 @@ login({
           banList.splice(index, 1);
         }
 
-        function uncheat(id){//uncheat a user
-          //To do: check if id exists in the array
-          var index = cheatList.indexOf(id);
-          cheatList.splice(index, 1);
+        function unCheat(id){//uncheat a user
+          if(isCheating(id)){
+            var index = cheatList.indexOf(id);
+            cheatList.splice(index, 1);
+          }
         }
 
         function cheat(id){//adds user to cheat list
@@ -185,9 +186,9 @@ login({
                   if (exists) { //the user is in this group chat
                       api.sendMessage(name + " is already in this groupchat", message.threadID);
                   } else { //the user isn't in this group chat
-                      setTimeout(() => { //delay between messages
-                          api.sendMessage("welcome, " + name, message.threadID);
-                      }, 1);
+                      // setTimeout(() => { //delay between messages
+                      //     api.sendMessage("welcome, " + name, message.threadID);
+                      // }, 1);
                       api.addUserToGroup(id, message.threadID);
                   }
               });
@@ -237,10 +238,24 @@ login({
           }
           //checks for easter eggs and sends messages
           if (!muted) {
+              //these are reation easter eggs
+              //angry react
+              if(func.triggers.angryReacts.test(message.body)){
+                  api.setMessageReaction(`😠`, message.messageID);
+              }
+              //laugh react
+              if(func.triggers.mank.test(message.body)){
+                  api.setMessageReaction(":haha:", message.messageID);
+              }
+              //love react
+              if(func.triggers.loveReacts.test(message.body) ||
+                 func.triggers.youRight.test(message.body)){
+                   api.setMessageReaction(`😍`, message.messageID);
+              }
               //These are picture easter eggs
               if (func.triggers.porn.test(message.body)) {
                   const msg = {
-                      attachment: fs.createReadStream(__dirname + '/pics/easter.png')
+                      attachment: fs.createReadStream(__dirname + '/pics/pornJSON.png')
                   }
                   api.sendMessage(msg, message.threadID);
               }
@@ -260,8 +275,6 @@ login({
               easter(message.body, func.triggers.konami, func.easterEggs.konami);
               easter(message.body, func.triggers.broCode, func.easterEggs.broCode);
               easter(message.body, func.triggers.wasabi, func.easterEggs.wasabi);
-              easter(message.body, func.triggers.cuck, func.easterEggs.cuck);
-              easter(message.body, func.triggers.mank, func.easterEggs.mank);
               easter(message.body, func.triggers.merit, func.easterEggs.merit);
               easter(message.body, func.triggers.brownie, func.easterEggs.brownie);
               easter(message.body, func.triggers.fbla, func.easterEggs.fbla);
@@ -298,12 +311,16 @@ login({
               text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
           }
 
+          if(/bro alive/i.test(message.body)){
+              api.sendMessage('<3' ,message.threadID);
+          }
+
           if (func.triggers.cheat.test(message.body)) { //super command that can only be accessed with konami code
             api.getUserInfo(message.senderID, (err, info)=>{
               setTimeout(()=> {
                 unCheat(message.senderID);
                 api.sendMessage("Cheat deactivated for " + info[message.senderID],message.threadID);
-              }, 10000);
+              }, 20000);
               cheat(message.senderID);
               api.sendMessage("Cheat activated. You have a 10 second window to use the super command: bro mess up {user}"
               , message.threadID);
@@ -363,13 +380,22 @@ login({
           if(func.triggers.messUp.test(message.body)){//super command
             const name = message.body.substring(11);
             if(isCheating(message.senderID)){
-              repeat(0, 500, 10, `
-                setTimeout(()=>{
-                  add(${name});
-                }, 250);
-                kick(${name});`);
-              unCheat(message.senderID);
-            }else{
+              // repeat(0, 500, 10, `
+              //   setTimeout(()=>{
+              //     add(${name});
+              //   }, 250);
+              //   kick(${name});`);
+            //   for(let i = 0; i < 10; i ++){
+            //     setTimeout(()=>{
+            //       add(name);
+            //     },2000+i*2000);
+            //     setTimeout(()=>{
+            //       kick(name);
+            //     }, 1000 +i*1000);
+            // }
+            api.sendMessage("I'm gonna mess em up. Here I come!",message.threadID);
+            unCheat(message.senderID);
+          }else{
               api.sendMessage("You do not have permission to this command", message.threadID);
             }
           }
