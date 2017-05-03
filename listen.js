@@ -211,11 +211,17 @@ login({
         });
     }
 
-    function download(url, filename, callback) {
+    function download(url, filename, callback) {//downloads an image
           request.head(url, function(err, res, body){
             request(url).pipe(fs.createWriteStream(filename)).on('close', callback);
           });
     };
+
+    function parseBody(url){
+        request.get(url, (error, response, body) => { //gets response from a url
+            api.sendMessage(body, message.threadID);
+        });
+    }
 
     function addGroups() {//stores groups
         var limit = 50;
@@ -322,6 +328,30 @@ login({
         && !func.triggers.where.test(message.body) && !func.triggers.howMuch.test(message.body)
         && !func.triggers.how.test(message.body) && !func.triggers.who.test(message.body)) {
             text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
+        }
+
+        if(func.triggers.trivia.test(message.body)){
+            const position = message.body.indexOf(func.triggers.trivia) + 12;
+            const substring = message.body.substring(position);
+            const query = substring.split(" ")[1];
+            const type = substring.split(" ")[0];
+            console.log(query + " and " + type);
+            var url = 'http://numbersapi.com/';
+            switch (type) {
+                case 'number':
+                    url += query;
+                    break;
+                case 'year':
+                    url += query + '/year';
+                    break;
+                case 'date':
+                    url += query + '/date';
+                    break;
+                case 'math':
+                    url += query + '/math';
+                    break;
+            }
+            parseBody(url);
         }
 
         if(/bro alive/i.test(message.body)){
@@ -581,13 +611,6 @@ login({
         add(name);
     }
 
-    if (func.triggers.gtfo.test(message.body)) {
-        var myID = api.getCurrentUserID();
-        setTimeout(() => { //delay between messages
-            api.removeUserFromGroup(myID, message.threadID);
-        }, 1000);
-        api.sendMessage("good bye friends, I'll miss you all", message.threadID);
-    }
     if (func.triggers.hitTheLights.test(message.body)) {
         repeat(0, 500, 10, "api.changeThreadColor(ranColor(), message.threadID)");
     }

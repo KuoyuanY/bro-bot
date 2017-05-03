@@ -10,6 +10,7 @@ module.exports = {
         honestAnswer : /bro honest answer/i,
         answer : /bro answer/i,
         meme : /bro meme/i,
+        trivia : /bro trivia/i,
         angryReacts: /fuck|fk|cuck|shit|racist|sexist|racism|gender|trump|penis|dick|vagina/i,
         youRight: /you right|u right|u rite|you rite|you're right|ur right| you're rite|ur rite/i,
         loveReacts : /prostitute|stripper|porn star|emma watson|taylor swift|megan fox|heidi klum|yiyi kuang|nipple/i,
@@ -162,21 +163,24 @@ module.exports = {
         ],
         commandExplanation : {
             hitTheLights: "changes the chat color 10 times",
-            answer: "answers your question seriously. \ncan answer math questions(integral, derivative) \n PS: If you have a legitimate question, I have a legitimate answer",
-            honest: "unpredictable response. But will be my most honest answers. Guaranteed",
-            search: "searches facebook users for a closest match to the input name",
-            gtfo: "removes the bot from group chat",
-            kick: "removes a user from the group chat. if there's number after the command, i.e. bro kick PERSON 5, the person will be kicked for 5 seconds then added back to the chat.",
-            add: "adds a user to the group chat",
-            wakeUp: "messages the user 'hey wake up!' 10 times if the user is in current group chat. If not, will message 'Someone wants me to wake you up'",
-            set: "sets the nickname for a user",
-            define: "returns the best definitions for the input word",
-            synonym: "returns synonyms for the input word",
-            mute: "mutes the bot's easter eggs",
-            unmute: "unmutes the bot's easter eggs",
-            greet: "say hello, hi, hey, etc. to me",
-            alive: "used to check if bot is working",
-            meme: "returns a meme and its description"
+            answer: "Answers your question seriously. \ncan answer math questions(integral, derivative) \nPS: If you have a legitimate question, I have a legitimate answer",
+            honest: "Unpredictable response. But will be my most honest answers. Guaranteed. \nCan answer who, where, when, why, how, how much.",
+            search: "Searches facebook users for a closest match to the input name",
+            kick: "Removes a user from the group chat. if there's number after the command, e.g. bro kick PERSON 5, the person will be kicked for 5 seconds then added back to the chat",
+            add: "Adds a user to the group chat",
+            wakeUp: "Messages the user 'hey wake up!' 10 times if the user is in current group chat. If not, will message 'Someone wants me to wake you up'",
+            set: "Sets the nickname for a user",
+            define: "Returns the best definitions for the input word",
+            synonym: "Returns synonyms for the input word",
+            mute: "Mutes the bot's easter eggs",
+            unmute: "Unmutes the bot's easter eggs",
+            greet: "Say hello, hi, hey, etc. to me. Example:hi bro, sup bro, wuzzup bro, etc",
+            alive: "Is used to check if bot is working",
+            meme: "Returns a meme and its description",
+            triviaNumber: "Finds a fun fact about a number. Example: 'bro trivia number 16'",
+            triviaYear: "Finds a fun fact about a year. Example: 'bro trivia year 1266'",
+            triviaDate: "Finds a fun fact about a date. Example: 'bro trivia date 10/4' ",
+            triviaMath: "Finds a math fun fact about a number. Example: 'bro trivia math 1043'"
 
         },
         basic: `Hi people of this group chat, I am a facebook chat bot. The commands to use me are
@@ -187,7 +191,7 @@ module.exports = {
         -bro honest answer{question}
         -bro search {name}
         -bro gtfo
-        -bro kick {name}
+        -bro kick {name} [duration]
         -bro add {name}
         -bro wake up {name}
         -bro set {name} nickname {nickname}
@@ -196,11 +200,19 @@ module.exports = {
         -bro mute
         -bro unmute
         -bro meme
+        -bro trivia number {number}
+        -bro trivia year {year}
+        -bro trivia math {number}
+        -bro trivia date {month/day}
         -super command (can only be accessed with a secret cheat code)
         Tip: use bro help {command} to get details about a command`
     },
     commands : {
         alive:/bro help alive/i,
+        triviaNumber: /bro help trivia number/i,
+        triviaYear: /bro help trivia year/i,
+        triviaDate: /bro help trivia date/i,
+        triviaMath: /bro help trivia math/i,
         greet:/bro help greet me/i,
         hitTheLights:/bro help hit the lights/i,
         answer: /bro help answer/i,
