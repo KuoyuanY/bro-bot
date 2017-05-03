@@ -30,7 +30,7 @@ module.exports = {
         state : /state/i,
         country : /country/i,
         brownie : /brownie/i,
-        nuts : /nuts|balls|room|everything|bet/i,
+        nuts : /^nuts|balls|room\b|everything|bet\b/i,
         fbla: /fbla/i,
         ban: /bro ban/i,
         unban: /bro unban/i,

@@ -211,19 +211,6 @@ login({
         });
     }
 
-    function proDownload(name, uri, callback){
-        const options = {
-          url: uri,
-          dest: name                  // Save to /path/to/dest/image.jpg
-      };
-        download.image(options)
-          .then(({ filename, image }) => {
-            console.log('File saved to', filename)
-          }).catch((err) => {
-            throw err
-          })
-    }
-
     function download(url, filename, callback) {
           request.head(url, function(err, res, body){
             request(url).pipe(fs.createWriteStream(filename)).on('close', callback);
@@ -387,7 +374,7 @@ login({
                 var rng = Math.floor(Math.random()*answer.data.children.length);
                 console.log(answer.data.children[rng].data);
 
-                download(answer.data.children[rng].data.url, 'meme.png', ()=>{//downloads the image
+                download(answer.data.children[rng].data.url, 'meme.png', ()=> {//downloads the image
                     console.log("downloaded");
                     var msg = {
                         body: answer.data.children[rng].data.title,
@@ -505,8 +492,21 @@ login({
                 } else {
                     const id = data[0].userID;
                     api.getUserInfo(id, (err, info) => {
-                        api.sendMessage("Best match: " + info[id].name + "\n" + info[id].profileUrl,
-                        message.threadID);
+                        const url ='http://graph.facebook.com/'+id+'/picture?type=large';
+                        download(url, 'profile.png', ()=> {//downloads the image
+                            console.log("downloaded");
+                            const msg = {
+                                body:"Best match: " + info[id].name + "\n" + info[id].profileUrl,
+                                attachment: fs.createReadStream('profile.png')
+                            }
+                            api.sendMessage(msg, message.threadID, ()=>{
+                                fs.unlink('profile.png', (err) => {//deletes the image after use
+                                  if (err)
+                                  console.log(err);
+                                  console.log('successfully deleted image');
+                                });
+                            });
+                        });
                     });
                 }
             });
