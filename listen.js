@@ -305,6 +305,7 @@ login({
             easter(message.body, func.triggers.fbla, func.easterEggs.fbla);
         }
         //checks for help commands
+        easter(message.body, func.commands.meme, func.triggers.commandExplanation.meme);
         easter(message.body, func.commands.mute, func.triggers.commandExplanation.mute);
         easter(message.body, func.commands.unmute, func.triggers.commandExplanation.unmute);
         easter(message.body, func.commands.greet, func.triggers.commandExplanation.greet);
