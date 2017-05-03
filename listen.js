@@ -368,7 +368,7 @@ login({
         }
 
         if(func.triggers.meme.test(message.body)){
-            const url = `https://www.reddit.com/r/dankmemes/top.json?sort=top`;
+            const url = `https://www.reddit.com/r/dankmemes/top.json?sort=top&limit=1000`;
             request.get(url, (error, response, Body) => { //gets top posts from r/dankmemes
                 const answer = JSON.parse(Body);
                 var rng = Math.floor(Math.random()*answer.data.children.length);
