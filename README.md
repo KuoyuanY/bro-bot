@@ -8,6 +8,14 @@ First clone the repository:
 ```
 $ git clone https://github.com/y9y9l5m6/bro-bot.git
 ```
+Go into bro-bot directory:
+```
+$ cd bro-bot
+```
+Install all dependencies:
+```
+$ npm install
+```
 Go into login.js and enter your email and password:
 ```javascript
 login({email: "YOUR EMAIL", password: "YOUR PASSWORD"}, (err, api) => {
