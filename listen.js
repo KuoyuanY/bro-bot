@@ -4,6 +4,7 @@ const login = require("facebook-chat-api");
 const func = require('./functions');
 const request = require("request");
 const http = require('http');
+const https = require('https');
 const unirest = require('unirest');
 const wordKey = "API key";
 const wolframKey = "wolframKey";
@@ -338,6 +339,10 @@ login({
             text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
         }
 
+        if(func.triggers.quotes.test(message.body)){
+
+        }
+
         if(func.triggers.trivia.test(message.body)){
             const position = message.body.indexOf(func.triggers.trivia) + 12;
             const substring = message.body.substring(position);
@@ -393,12 +398,8 @@ login({
                             if(banList.includes(id)){
                                 api.sendMessage(name + " is already banned", message.threadID);
                             }else{
-                                setTimeout(() => {
-                                    unban(id);
-                                    api.sendMessage(name + " is no longer banned",message.threadID);
-                                }, 600000);
                                 ban(id);
-                                api.sendMessage("User successfully banned for a default time of 10 minutes.", message.threadID);
+                                api.sendMessage("User is now banned.", message.threadID);
                             }
                         }else{
                             api.sendMessage(name + " isn't in this groupchat", message.threadID);
