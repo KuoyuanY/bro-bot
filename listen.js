@@ -219,7 +219,11 @@ login({
 
     function parseBody(url){
         request.get(url, (error, response, body) => { //gets response from a url
-            api.sendMessage(body, message.threadID);
+            if(error){
+                api.sendMessage("Error",message.threadID);
+            }else {
+                api.sendMessage(body, message.threadID);
+            }
         });
     }
 
@@ -298,6 +302,10 @@ login({
             easter(message.body, func.triggers.fbla, func.easterEggs.fbla);
         }
         //checks for help commands
+        easter(message.body, func.commands.triviaNumber, func.triggers.commandExplanation.triviaNumber);
+        easter(message.body, func.commands.triviaMath, func.triggers.commandExplanation.triviaMath);
+        easter(message.body, func.commands.triviaDate, func.triggers.commandExplanation.triviaDate);
+        easter(message.body, func.commands.triviaYear, func.triggers.commandExplanation.triviaYear);
         easter(message.body, func.commands.meme, func.triggers.commandExplanation.meme);
         easter(message.body, func.commands.mute, func.triggers.commandExplanation.mute);
         easter(message.body, func.commands.unmute, func.triggers.commandExplanation.unmute);
@@ -340,18 +348,23 @@ login({
             switch (type) {
                 case 'number':
                     url += query;
+                    parseBody(url);
                     break;
                 case 'year':
                     url += query + '/year';
+                    parseBody(url);
                     break;
                 case 'date':
                     url += query + '/date';
+                    parseBody(url);
                     break;
                 case 'math':
                     url += query + '/math';
+                    parseBody(url);
                     break;
+                default:
+                    api.sendMessage("Error input", message.threadID);
             }
-            parseBody(url);
         }
 
         if(/bro alive/i.test(message.body)){
