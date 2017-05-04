@@ -1,0 +1,24 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "facebook chat bot",
+  "main": "node listen.js",
+  "scripts": {
+    "test": "node listen.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/y9y9l5m6/bro-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/y9y9l5m6/bro-bot/issues"
+  },
+  "homepage": "https://github.com/y9y9l5m6/bro-bot#readme",
+  "dependencies": {
+    "facebook-chat-api": "^1.4.0",
+    "image-downloader": "^3.2.1",
+    "unirest": "^0.5.1"
+  }
+}
