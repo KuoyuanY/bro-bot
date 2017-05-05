@@ -179,8 +179,8 @@ module.exports = {
             unmute: "Unmutes the bot's easter eggs",
             greet: "Say hello, hi, hey, etc. to me. Example:hi bro, sup bro, wuzzup bro, etc",
             alive: "Is used to check if bot is working",
-            dankMeme: "Returns a meme from r/dankmemes and its description",
-            prequelMeme: "Returns a meme from r/PrequelMemes and its description",
+            meme: "Returns a meme from r/dankmemes and its description",
+            prequel: "Returns a meme from r/PrequelMemes and its description",
             triviaNumber: "Finds a fun fact about a number. Example: 'bro trivia number 16'",
             triviaYear: "Finds a fun fact about a year. Example: 'bro trivia year 1266'",
             triviaDate: "Finds a fun fact about a date. Example: 'bro trivia date 10/4' ",
@@ -203,8 +203,8 @@ module.exports = {
         -bro synonym {word}
         -bro mute
         -bro unmute
-        -bro dank meme
-        -bro prequel meme
+        -bro meme
+        -bro prequel
         -bro trivia number {number}
         -bro trivia year {year}
         -bro trivia math {number}
@@ -232,8 +232,8 @@ module.exports = {
         synonym: /bro help synonym/i,
         mute: /bro help mute/i,
         unmute: /bro help unmute/i,
-        dankMeme: /bro help dank meme/i,
-        prequelMeme: /bro help prequel meme/i
+        meme: /bro help meme/i,
+        prequel: /bro help prequel/i
 
     },
     easterEggs : {
