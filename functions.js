@@ -179,7 +179,8 @@ module.exports = {
             unmute: "Unmutes the bot's easter eggs",
             greet: "Say hello, hi, hey, etc. to me. Example:hi bro, sup bro, wuzzup bro, etc",
             alive: "Is used to check if bot is working",
-            meme: "Returns a meme and its description",
+            dankMeme: "Returns a meme from r/dankmemes and its description",
+            prequelMeme: "Returns a meme from r/PrequelMemes and its description",
             triviaNumber: "Finds a fun fact about a number. Example: 'bro trivia number 16'",
             triviaYear: "Finds a fun fact about a year. Example: 'bro trivia year 1266'",
             triviaDate: "Finds a fun fact about a date. Example: 'bro trivia date 10/4' ",
@@ -202,7 +203,8 @@ module.exports = {
         -bro synonym {word}
         -bro mute
         -bro unmute
-        -bro meme
+        -bro dank meme
+        -bro prequel meme
         -bro trivia number {number}
         -bro trivia year {year}
         -bro trivia math {number}
@@ -230,7 +232,9 @@ module.exports = {
         synonym: /bro help synonym/i,
         mute: /bro help mute/i,
         unmute: /bro help unmute/i,
-        meme: /bro help meme/i
+        dankMeme: /bro help dank meme/i,
+        prequelMeme: /bro help prequel meme/i
+
     },
     easterEggs : {
         broCode: "Bro Code\nArticle 1 - Bros before ho’s\nArticle 2 : A bro is always entitled to do something stupid, as long as the rest of his Bros are all doing it\nArticle 3 : If a Bro gets a dog, it must be at least as tall as his knee when full-grown\nArticle 4 : A Bro never divulges the existence of The Bro Code to a woman. It is a sacred document not to be shared with chicks for any reason… no, not even that reason\nArticle 10 : A Bro will drop whatever he’s doing and rush to help his Bro dump a chick\nArticle 31 - A bro must always oblige to fulfill the actions of a double-dog dare\nArticle 34 - Bros cannot make eye contact during a devils three-way\nArticle 62 - A bro that calls dibs first, has dibs \nArticle 78 - A Bro shall never rack jack his wingman\nArticle 104 - The mom of a bro is always off limits, unless she is a step-mom and she initiates it and/or is wearing one or more articles of leopard print clothing",
