@@ -9,7 +9,7 @@ const unirest = require('unirest');
 const wordKey = "API key";
 const wolframKey = "wolframKey";
 var muted = false;
-
+var counterTLDR;
 function ranColor() {
     const letters = '0123456789ABCDEF';
     var color = '#';
@@ -346,7 +346,15 @@ login({
             text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
         }
 
-        if(func.triggers.quotes.test(message.body)){
+        if(func.triggers.tldr.test(message.body)){
+
+        }
+
+        if(func.triggers.endTopic.test(message.body)){
+
+        }
+
+        if(func.triggers.startTopic.test(message.body)){
 
         }
 
