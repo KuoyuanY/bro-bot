@@ -10,6 +10,7 @@ const wordKey = "API key";
 const wolframKey = "wolframKey";
 var muted = false;
 var counterTLDR;
+
 function ranColor() {
     const letters = '0123456789ABCDEF';
     var color = '#';
@@ -395,7 +396,7 @@ login({
             api.getUserInfo(message.senderID, (err, info)=>{
                 setTimeout(()=> {
                     unCheat(message.senderID);
-                    api.sendMessage("Cheat deactivated for " + info[message.senderID],message.threadID);
+                    api.sendMessage("Cheat deactivated for " + info[message.senderID].name,message.threadID);
                 }, 20000);
                 cheat(message.senderID);
                 api.sendMessage("Cheat activated. You have a 10 second window to use the super command: bro mess up {user}"
@@ -426,47 +427,35 @@ login({
             }
         }
 
-        if(func.triggers.meme.test(message.body)){
-            const url = `https://www.reddit.com/r/dankmemes/top.json?t=all&sort=top&limit=1000`;
+        if(func.triggers.r.test(message.body)){
+            const pos = message.body.search(func.triggers.r) + 4;
+            const query = message.body.substring(pos);
+            const url = `https://www.reddit.com/` + query + `/top.json?t=all&sort=top&limit=1000`;
             request.get(url, (error, response, Body) => { //gets top posts from r/dankmemes
                 const answer = JSON.parse(Body);
-                var rng = Math.floor(Math.random()*answer.data.children.length);
-                console.log(answer.data.children[rng].data);
-
-                download(answer.data.children[rng].data.url, 'dank.png', ()=> {//downloads the image
-                    console.log("downloaded");
-                    var msg = {
-                        body: answer.data.children[rng].data.title,
-                        attachment: fs.createReadStream('dank.png')
-                    };
-                    api.sendMessage(msg, message.threadID, ()=>{
-                        fs.unlink('dank.png', (err) => {//deletes the image after use
-                          if (err) throw err;
-                          console.log('successfully deleted image');
+                if(response.statusCode === 200){
+                    var rng = Math.floor(Math.random()*answer.data.children.length);
+                    console.log(answer.data.children[rng]);
+                    var image = answer.data.children[rng].data.url;
+                    if(/www/i.test(image)){
+                        var msg = `title: ${answer.data.children[rng].data.title}\nlink: ${image}`;
+                        api.sendMessage(msg, message.threadID);
+                    } else {
+                        download(image, 'dank.png', ()=> {//downloads the image
+                            console.log("downloaded");
+                            var msg = {
+                                body: answer.data.children[rng].data.title,
+                                attachment: fs.createReadStream('dank.png')
+                            };
+                            api.sendMessage(msg, message.threadID, ()=>{
+                                fs.unlink('dank.png', (err) => {//deletes the image after use
+                                  if (err) throw err;
+                                  console.log('successfully deleted image');
+                                });
+                            });
                         });
-                    });
-                });
-            });
-        } else if(func.triggers.prequel.test(message.body)){
-            const url = `https://www.reddit.com/r/PrequelMemes/top.json?t=all&sort=top&limit=500`;
-            request.get(url, (error, response, Body) => { //gets top posts from r/dankmemes
-                const answer = JSON.parse(Body);
-                var rng = Math.floor(Math.random()*answer.data.children.length);
-                console.log(answer.data.children[rng].data);
-
-                download(answer.data.children[rng].data.url, 'prequel.png', ()=> {//downloads the image
-                    console.log("downloaded");
-                    var msg = {
-                        body: answer.data.children[rng].data.title,
-                        attachment: fs.createReadStream('prequel.png')
-                    };
-                    api.sendMessage(msg, message.threadID, ()=>{
-                        fs.unlink('prequel.png', (err) => {//deletes the image after use
-                          if (err) throw err;
-                          console.log('successfully deleted image');
-                        });
-                    });
-                });
+                    }
+                }
             });
         }
 
