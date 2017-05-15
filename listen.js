@@ -432,28 +432,30 @@ login({
             const query = message.body.substring(pos);
             const url = `https://www.reddit.com/` + query + `/top.json?t=all&sort=top&limit=1000`;
             request.get(url, (error, response, Body) => { //gets top posts from r/dankmemes
-                const answer = JSON.parse(Body);
-                if(response.statusCode === 200){
-                    var rng = Math.floor(Math.random()*answer.data.children.length);
-                    console.log(answer.data.children[rng]);
-                    var image = answer.data.children[rng].data.url;
-                    if(/www/i.test(image)){
-                        var msg = `title: ${answer.data.children[rng].data.title}\nlink: ${image}`;
-                        api.sendMessage(msg, message.threadID);
-                    } else {
-                        download(image, 'dank.png', ()=> {//downloads the image
-                            console.log("downloaded");
-                            var msg = {
-                                body: answer.data.children[rng].data.title,
-                                attachment: fs.createReadStream('dank.png')
-                            };
-                            api.sendMessage(msg, message.threadID, ()=>{
-                                fs.unlink('dank.png', (err) => {//deletes the image after use
-                                  if (err) throw err;
-                                  console.log('successfully deleted image');
+                if(response){
+                    if(response.statusCode === 200){
+                        const answer = JSON.parse(Body);
+                        var rng = Math.floor(Math.random()*answer.data.children.length);
+                        console.log(answer.data.children[rng]);
+                        var image = answer.data.children[rng].data.url;
+                        if(/www/i.test(image)){
+                            var msg = `title: ${answer.data.children[rng].data.title}\nlink: ${image}`;
+                            api.sendMessage(msg, message.threadID);
+                        } else {
+                            download(image, 'dank.png', ()=> {//downloads the image
+                                console.log("downloaded");
+                                var msg = {
+                                    body: answer.data.children[rng].data.title,
+                                    attachment: fs.createReadStream('dank.png')
+                                };
+                                api.sendMessage(msg, message.threadID, ()=>{
+                                    fs.unlink('dank.png', (err) => {//deletes the image after use
+                                      if (err) throw err;
+                                      console.log('successfully deleted image');
+                                    });
                                 });
                             });
-                        });
+                        }
                     }
                 }
             });
