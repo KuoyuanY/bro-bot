@@ -314,8 +314,7 @@ login({
         easter(message.body, func.commands.triviaMath, func.triggers.commandExplanation.triviaMath);
         easter(message.body, func.commands.triviaDate, func.triggers.commandExplanation.triviaDate);
         easter(message.body, func.commands.triviaYear, func.triggers.commandExplanation.triviaYear);
-        easter(message.body, func.commands.prequel, func.triggers.commandExplanation.prequel);
-        easter(message.body, func.commands.meme, func.triggers.commandExplanation.meme);
+        easter(message.body, func.commands.r, func.triggers.commandExplanation.r);
         easter(message.body, func.commands.mute, func.triggers.commandExplanation.mute);
         easter(message.body, func.commands.unmute, func.triggers.commandExplanation.unmute);
         easter(message.body, func.commands.greet, func.triggers.commandExplanation.greet);
