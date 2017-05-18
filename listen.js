@@ -8,8 +8,11 @@ const https = require('https');
 const unirest = require('unirest');
 const wordKey = "API key";
 const wolframKey = "wolframKey";
+
 var muted = false;
 var counterTLDR;
+var banList = [];
+var cheatList = [];
 
 function ranColor() {
     const letters = '0123456789ABCDEF';
@@ -19,8 +22,7 @@ function ranColor() {
     }
     return color;
 }
-var banList = [];
-var cheatList = [];
+
 login({
     appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))
 }, (err, api) => { //reads appstate file and logs in
@@ -214,10 +216,23 @@ login({
     }
 
     function download(url, filename, callback) {//downloads an image
-          request.head(url, function(err, res, body){
+        request.head(url, function(err, res, body){
             request(url).pipe(fs.createWriteStream(filename)).on('close', callback);
-          });
+        });
     };
+
+    function downloadYT(link, filename, callback){
+        var video = youtubedl(link);
+        video.on('info', function(info) {
+            api.sendMessage("This is gonna take a few seconds...", message.threadID);
+            console.log('Download started');
+            console.log('filename: ' + info._filename);
+            console.log('size: ' + info.size);
+        });
+
+        video.pipe(fs.createWriteStream(filename)).on('close', callback);
+
+    }
 
     function parseBody(url){
         request.get(url, (error, response, body) => { //gets response from a url
@@ -280,12 +295,6 @@ login({
             if(func.triggers.pregnant.test(message.body)){
                 const msg = {
                     attachment: fs.createReadStream(__dirname + '/pics/pregnant.png')
-                };
-                api.sendMessage(msg, message.threadID);
-            }
-            if (func.triggers.porn.test(message.body)) {
-                const msg = {
-                    attachment: fs.createReadStream(__dirname + '/pics/pornJSON.png')
                 };
                 api.sendMessage(msg, message.threadID);
             }
@@ -367,23 +376,23 @@ login({
             var url = 'http://numbersapi.com/';
             switch (type) {
                 case 'number':
-                    url += query;
-                    parseBody(url);
-                    break;
+                url += query;
+                parseBody(url);
+                break;
                 case 'year':
-                    url += query + '/year';
-                    parseBody(url);
-                    break;
+                url += query + '/year';
+                parseBody(url);
+                break;
                 case 'date':
-                    url += query + '/date';
-                    parseBody(url);
-                    break;
+                url += query + '/date';
+                parseBody(url);
+                break;
                 case 'math':
-                    url += query + '/math';
-                    parseBody(url);
-                    break;
+                url += query + '/math';
+                parseBody(url);
+                break;
                 default:
-                    api.sendMessage("Error input", message.threadID);
+                api.sendMessage("Error input", message.threadID);
             }
         }
 
@@ -428,36 +437,73 @@ login({
 
         if(func.triggers.r.test(message.body)){
             const pos = message.body.search(func.triggers.r) + 4;
-            const query = message.body.substring(pos);
-            const url = `https://www.reddit.com/` + query + `/top.json?t=all&sort=top&limit=1000`;
-            request.get(url, (error, response, Body) => { //gets top posts from r/dankmemes
-                if(response){
-                    if(response.statusCode === 200){
-                        const answer = JSON.parse(Body);
-                        var rng = Math.floor(Math.random()*answer.data.children.length);
-                        console.log(answer.data.children[rng]);
-                        var image = answer.data.children[rng].data.url;
-                        if(/www/i.test(image)){
-                            var msg = `title: ${answer.data.children[rng].data.title}\nlink: ${image}`;
-                            api.sendMessage(msg, message.threadID);
-                        } else {
-                            download(image, 'dank.png', ()=> {//downloads the image
-                                console.log("downloaded");
+            var query = message.body.substring(pos);
+            if(/[^a-zA-Z0-9\/]+/i.test(query)){//checks for valid query
+                api.sendMessage("Invalid subreddit", message.threadID);
+            } else{
+                const url = `https://www.reddit.com/` + query + `/top.json?t=all&sort=top&limit=1000`;
+                request.get(url, (error, response, Body) => { //gets top posts from r/dankmemes
+                    if(response){
+                        if(response.statusCode === 200){
+                            const answer = JSON.parse(Body);
+                            var rng = Math.floor(Math.random()*answer.data.children.length);
+                            console.log(answer.data.children[rng]);
+                            var link = answer.data.children[rng].data.url;
+                            if(/comment/i.test(link)){//the post is text only
+                                var msg = {
+                                    body: `Title: ${answer.data.children[rng].data.title}`,
+                                    url: link
+                                };
+                                api.sendMessage(msg, message.threadID);
+                            }else if(/youtu\.be|youtube\.com|vid\.me|streamable\.com/i.test(link)){//the post is a video
+                                var msg = {
+                                    body: `Title: ${answer.data.children[rng].data.title}`,
+                                    url: link
+                                };
+                                api.sendMessage(msg, message.threadID);
+                            }else if(/\.gif$/i.test(link)){//the post is a gif file
+                                api.sendMessage("Give me a sec...", message.threadID);
+                                download(link, "subreddit.gif", () => {
+                                    console.log("downloaded gif");
+                                    var msg = {
+                                        body: answer.data.children[rng].data.title,
+                                        attachment: fs.createReadStream('subreddit.gif')
+                                    }
+                                    api.sendMessage(msg, message.threadID, ()=>{
+                                        fs.unlink('subreddit.gif', (err) => {//deletes the gif after use
+                                            if (err) throw err;
+                                            console.log('deleted gif');
+                                        });
+                                    })
+                                })
+                            }else if(/\.gifv|gfycat\.com/i.test(link)){//the post is a gif link
                                 var msg = {
                                     body: answer.data.children[rng].data.title,
-                                    attachment: fs.createReadStream('dank.png')
+                                    url: link
                                 };
-                                api.sendMessage(msg, message.threadID, ()=>{
-                                    fs.unlink('dank.png', (err) => {//deletes the image after use
-                                      if (err) throw err;
-                                      console.log('successfully deleted image');
+                                api.sendMessage(msg, message.threadID);
+                            }else {//the post is a picture
+                                download(link, 'dank.png', ()=> {//downloads the image
+                                    console.log("downloaded image");
+                                    var msg = {
+                                        body: answer.data.children[rng].data.title,
+                                        attachment: fs.createReadStream('dank.png')
+                                    };
+                                    api.sendMessage(msg, message.threadID, ()=>{
+                                        fs.unlink('dank.png', (err) => {//deletes the image after use
+                                            if (err) throw err;
+                                            console.log('deleted image');
+                                        });
                                     });
                                 });
-                            });
+                            }
+                            //  else {//can't identify the type of post
+                            //     api.sendMessage("Uhhh...\nTry again..." ,message.threadID)
+                            // }
                         }
                     }
-                }
-            });
+                });
+            }
         }
 
         if(func.triggers.unban.test(message.body)){//unbans a user
@@ -571,9 +617,9 @@ login({
                             }
                             api.sendMessage(msg, message.threadID, ()=>{
                                 fs.unlink('profile.png', (err) => {//deletes the image after use
-                                  if (err)
-                                  console.log(err);
-                                  console.log('successfully deleted image');
+                                    if (err)
+                                    console.log(err);
+                                    console.log('successfully deleted image');
                                 });
                             });
                         });

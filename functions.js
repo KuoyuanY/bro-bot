@@ -26,7 +26,6 @@ module.exports = {
         merit : /merit/i,
         mank : /mank/i,
         pregnant : /pregnant/i,
-        porn : /porn/i,
         wasabi : /wasabi/i,
         bruh : /bruh/i,
         wtf : /what the actual fuck|what the fuck|dafuq/i,
@@ -78,7 +77,7 @@ module.exports = {
             "in an hour", "before the dawn", "sunset", "Next year", "when Trump retires",
             "year 1776","year 6666","winter", "last fall", "next spring", "every fucking summer", "a minute ago",
             "uhhh last week?", "lmao it was yesterday", "not gonna happen until another 500 years",
-            "https://www.youtube.com/watch?v=3y7rqHYNP0Y"
+            {url:"https://www.youtube.com/watch?v=3y7rqHYNP0Y"}
         ],
         places : [
             "I don't fucking know", "I seriously have no idea", "Could be anywhere",
@@ -103,7 +102,8 @@ module.exports = {
             "definitely not Kuoyuan", "I seriously have no clue" ,"Give me a break, ask someone else",
             "you know who would know that? \nnot me, so gtfo", "uhhh Steve Jobs",
             "William Gates", "Bill Howard Taft", "Bill Shakespeare", "William Nye",
-            "https://www.youtube.com/watch?v=zO9RzrhYR-I"
+            {url: 'https://www.youtube.com/watch?v=zO9RzrhYR-I'}
+
         ],
         answers : [
             "Time will tell",
@@ -132,9 +132,9 @@ module.exports = {
             "ayyyy for sure",
             "spell it with me \n y \n e \n s \ncome on its yes",
             "no means no",
-            "seulpeohajima no no no\nhonjaga anya no no no\nhttps://www.youtube.com/watch?v=dbQ5FSnExYg",
-            "uhhh yes\nI mean no...\nactually maybe \nhttps://www.youtube.com/watch?v=b34ri3-uxks",
-            "say yes\nhttps://www.youtube.com/watch?v=vT-raVIAT9A"
+            {body: "seulpeohajima no no no\nhonjaga anya no no no", url:"https://www.youtube.com/watch?v=dbQ5FSnExYg"},
+            {body: "uhhh yes\nI mean no...\nactually maybe", url:"https://www.youtube.com/watch?v=b34ri3-uxks"},
+            {body: "say yes", url:"https://www.youtube.com/watch?v=vT-raVIAT9A"}
         ],
         greetings : [
             "what up my homie",
@@ -146,7 +146,7 @@ module.exports = {
             "what's good",
             "how you doing",
             "you talking to me?",
-            "https://www.youtube.com/watch?v=skZxb5sBoiU",
+            {url: "https://www.youtube.com/watch?v=skZxb5sBoiU"},
             "hi",
             "helllo",
             "hey there girl ;)",
