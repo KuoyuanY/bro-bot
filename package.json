@@ -20,6 +20,7 @@
     "facebook-chat-api": "^1.4.0",
     "image-downloader": "^3.2.1",
     "request": "^2.81.0",
-    "unirest": "^0.5.1"
+    "unirest": "^0.5.1",
+    "youtube-dl": "^1.11.1"
   }
 }
