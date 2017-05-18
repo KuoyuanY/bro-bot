@@ -187,6 +187,7 @@ login({
         function add(name){
             api.getUserID(name, (err, data) => {
                 const id = data[0].userID; //user id for input name
+                console.log(id);
                 existsInGroup(id, message.threadID, (exists) => {
                     if (exists) { //the user is in this group chat
                         api.sendMessage(name + " is already in this groupchat", message.threadID);
@@ -680,30 +681,39 @@ login({
             var temp = arr.join(" ");
             name = temp.substring(0, temp.length - 1 - duration.length);
         }
-        if (!hasDuration) {
-            setTimeout(() => { //delay between messages
-                kick(name);
-            }, 1000);
-            api.sendMessage("You don't belong here, " + name, message.threadID);
-        } else {
-            setTimeout(() => {
-                add(name);
-            }, duration * 1000);
-            kick(name);
-        }
-    }
+        api.getUserID(name, (err, data) =>{
+            let id = data[0].userID;
+            if(id == 100015471968272){
+                api.sendMessage("Nice try", message.threadID);
+            } else {
+                if (!hasDuration) {
+                    setTimeout(() => { //delay between messages
+                        kick(name);
+                    }, 1000);
+                    api.sendMessage("You don't belong here, " + name, message.threadID);
+                } else {
+                    setTimeout(() => {
+                        add(name);
+                    }, duration * 1000);
+                    kick(name);
+                };
+            }
+        })
 
-    if (func.triggers.add.test(message.body)) { //if calls bro add
-        const name = message.body.substring(message.body.search(func.triggers.add) + 8);
-        add(name);
-    }
+}
 
-    if (func.triggers.hitTheLights.test(message.body)) {
-        repeat(0, 500, 10, "api.changeThreadColor(ranColor(), message.threadID)");
-    }
-    if (func.triggers.help.test(message.body)) { // description of what bot can do
-        api.sendMessage(func.triggers.basic, message.threadID);
-    }
+
+if (func.triggers.add.test(message.body)) { //if calls bro add
+    const name = message.body.substring(message.body.search(func.triggers.add) + 8);
+    add(name);
+}
+
+if (func.triggers.hitTheLights.test(message.body)) {
+    repeat(0, 500, 10, "api.changeThreadColor(ranColor(), message.threadID)");
+}
+if (func.triggers.help.test(message.body)) { // description of what bot can do
+    api.sendMessage(func.triggers.basic, message.threadID);
+}
 }
 });
 });
