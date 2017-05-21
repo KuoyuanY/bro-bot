@@ -178,24 +178,31 @@ login({
                     if (check) {
                         api.removeUserFromGroup(id, message.threadID);
                     } else {
-                        api.sendMessage(name + " is not in this groupchat", message.threadID);
+                        api.sendMessage(name + " is not in this group chat", message.threadID);
                     }
                 });
             });
         }
 
-        function add(name){
+        function add(name, counter){
             api.getUserID(name, (err, data) => {
                 const id = data[0].userID; //user id for input name
-                console.log(id);
                 existsInGroup(id, message.threadID, (exists) => {
                     if (exists) { //the user is in this group chat
-                        api.sendMessage(name + " is already in this groupchat", message.threadID);
+                        api.sendMessage(name + " is already in this group chat", message.threadID);
                     } else { //the user isn't in this group chat
                     // setTimeout(() => { //delay between messages
                     //     api.sendMessage("welcome, " + name, message.threadID);
                     // }, 1);
-                    api.addUserToGroup(id, message.threadID);
+                    api.addUserToGroup(id, message.threadID, ()=>{
+                        existsInGroup(id, message.threadID, (exists) => {
+                            if(!exists){
+                                if(counter < 10){
+                                    add(name, counter+1);
+                                }
+                            }
+                        });
+                    });
                 }
             });
         });
@@ -453,9 +460,21 @@ login({
                             var link = answer.data.children[rng].data.url;
                             if(/comment/i.test(link)){//the post is text only
                                 var msg = {
-                                    body: `Title: ${answer.data.children[rng].data.title}`,
+                                    body: `Title: \n${answer.data.children[rng].data.title}`,
                                     url: link
                                 };
+                                var mar;
+                                if (answer.data.children[rng].data.selftext!==''){//if the post has a body text
+                                    var words = answer.data.children[rng].data.selftext.split(" ");
+                                    if(words.length > 60){//only select first 60 words
+                                        words = words.slice(0, 61);
+                                         mar = words.join(" ");
+                                         mar += " ...";
+                                    } else {
+                                        mar = words.join(" ");
+                                    }
+                                    msg.body+="\nBody:\n" + mar;
+                                }
                                 api.sendMessage(msg, message.threadID);
                             }else if(/youtu\.be|youtube\.com|vid\.me|streamable\.com/i.test(link)){//the post is a video
                                 var msg = {
@@ -478,12 +497,31 @@ login({
                                         });
                                     })
                                 })
-                            }else if(/\.gifv|gfycat\.com/i.test(link)){//the post is a gif link
+                            }else if(/gfycat\.com/i.test(link)){//the post is a gif link
                                 var msg = {
                                     body: answer.data.children[rng].data.title,
                                     url: link
                                 };
                                 api.sendMessage(msg, message.threadID);
+                            }else if(/\.gifv/i.test(link)){//gif from imgur
+                                var pos = answer.data.children[rng].data.url.search(".gifv");
+                                var identifier = answer.data.children[rng].data.url.substring(0, pos);
+                                identifier+=".mp4";
+                                console.log(identifier);
+                                download(identifier, 'dank.mp4', ()=> {//downloads the image
+                                    api.sendMessage("Hold on, this is going to take a while...", message.threadID);
+                                    console.log("downloaded mp4");
+                                    var msg = {
+                                        body: answer.data.children[rng].data.title,
+                                        attachment: fs.createReadStream('dank.mp4')
+                                    };
+                                    api.sendMessage(msg, message.threadID, ()=>{
+                                        fs.unlink('dank.mp4', (err) => {//deletes the image after use
+                                            if (err) throw err;
+                                            console.log('deleted mp4');
+                                        });
+                                    });
+                                });
                             }else {//the post is a picture
                                 download(link, 'dank.png', ()=> {//downloads the image
                                     console.log("downloaded image");
@@ -682,7 +720,7 @@ login({
             name = temp.substring(0, temp.length - 1 - duration.length);
         }
         api.getUserID(name, (err, data) =>{
-            let id = data[0].userID;
+            var id = data[0].userID;
             if(id == 100015471968272){
                 api.sendMessage("Nice try", message.threadID);
             } else {
@@ -691,29 +729,35 @@ login({
                         kick(name);
                     }, 1000);
                     api.sendMessage("You don't belong here, " + name, message.threadID);
-                } else {
-                    setTimeout(() => {
-                        add(name);
-                    }, duration * 1000);
-                    kick(name);
+                } else {//add back after duration
+                    existsInGroup(id, message.threadID, (exists) => {
+                        if(exists){
+                            setTimeout(() => {
+                                add(name, 0);
+                            }, duration * 1000);
+                            kick(name);
+                        } else {
+                            api.sendMessage("User is not in this chat", message.threadID);
+                        }
+                    })
                 };
             }
         })
 
-}
+    }
 
 
-if (func.triggers.add.test(message.body)) { //if calls bro add
-    const name = message.body.substring(message.body.search(func.triggers.add) + 8);
-    add(name);
-}
+    if (func.triggers.add.test(message.body)) { //if calls bro add
+        const name = message.body.substring(message.body.search(func.triggers.add) + 8);
+        add(name, 0);
+    }
 
-if (func.triggers.hitTheLights.test(message.body)) {
-    repeat(0, 500, 10, "api.changeThreadColor(ranColor(), message.threadID)");
-}
-if (func.triggers.help.test(message.body)) { // description of what bot can do
-    api.sendMessage(func.triggers.basic, message.threadID);
-}
+    if (func.triggers.hitTheLights.test(message.body)) {
+        repeat(0, 500, 10, "api.changeThreadColor(ranColor(), message.threadID)");
+    }
+    if (func.triggers.help.test(message.body)) { // description of what bot can do
+        api.sendMessage(func.triggers.basic, message.threadID);
+    }
 }
 });
 });
