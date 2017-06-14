@@ -1,249 +1,194 @@
-module.exports = {
-    triggers:{              //regex that trigger the bot
-        who : /bro honest answer who/i,
-        why : /bro honest answer why/i,
-        how : /bro honest answer how/i,
-        howMuch : /bro honest answer how much/i,
-        where : /bro honest answer where/i,
-        what : /bro honest answer what/i,
-        when : /bro honest answer when/i,
-        honestAnswer : /bro honest answer/i,
-        answer : /bro answer/i,
-        r :/bro r\//i,
-        trivia : /bro trivia/i,
-        tldr : /bro tldr/i,
-        startTopic :/bro start topic/i,
-        endTopic : /bro end topic/i,
-        angryReacts: /fuck|fk|cuck|shit|racist|sexist|racism|gender|trump|penis|dick|vagina/i,
-        youRight: /you right|u right|u rite|you rite|you're right|ur right| you're rite|ur rite/i,
-        loveReacts : /prostitute|stripper|porn star|emma watson|taylor swift|megan fox|heidi klum|yiyi kuang|nipple/i,
-        hitTheLights : /bro hit the lights/i,
-        help : /bro help$/i,
-        greet: /^hi bro|hey bro|hello bro|up bro|how are you bro|fuck you bro|yo bro|bro fuck you/i,
-        konami: /konami code/i,
-        cheat: /↑ ↑ ↓ ↓ ← → ← → B A|up up down down left right left right B A/i,
-        messUp: /bro mess up/i,
-        merit : /merit/i,
-        mank : /mank/i,
-        pregnant : /pregnant/i,
-        wasabi : /wasabi/i,
-        bruh : /bruh/i,
-        wtf : /what the actual fuck|what the fuck|dafuq/i,
-        holyShit : /holy shit/i,
-        city : /city/i,
-        state : /state/i,
-        country : /country/i,
-        brownie : /brownie/i,
-        nuts : /^nuts|balls|gonads|room\b|bet\b/i,
-        fbla: /fbla/i,
-        ban: /bro ban/i,
-        unban: /bro unban/i,
-        search: /bro search/i,
-        add: /bro add/i,
-        kick: /bro kick/i,
-        wake: /bro wake up/i,
-        gtfo: /bro gtfo/i,
-        set: /bro set/i,
-        nickname: /nickname/i,
-        broCode: /bro code/i,
-        define: /bro define/i,
-        antonym: /bro antonym/i,
-        synonym: /bro synonym/i,
-        mute: /bro mute/i,
-        unmute: /bro unmute/i,
-        upvote: /bro \+\+/i,
-        downvote: /bro \-\-/i,
-        //answers to why
-        reasons : [
-            "Don't ask me why, tis just the way it is", "WHY? well BECAUSE!", "because Trump became the president", "because I love bernie sanders",
-            "Because your knees are weak, arms heavy. there's vomit on your sweater already, mom's spaghetti.", "Because my milkshake brings all the boys to the yard",
-            "because I sometimes also feel like a plastic bag, drifting through the wind, wanting to start again", "because if you redefine the meaning of a word, you can achieve anything",
-            "belive me, because if you stop going forward, you're either staying in the same place or going backwards",
-            "trust me, I am the person who knows the most about this subject. Trust me. Because if you take 3 squared and multiply by 4, the pizza store downstairs will increase production which leads to a lowering of freezing point of ice around the store. This results in serious damage to wild animals. Thus the answer to your question",
-            "believe me, because I said so and I know the most about this subject. Nobody knows more than I do.",
-            "first of all, I will definitely answer your question. and I just wanna say: Not a simple question. Not a fair question. Okay, sit down. I understand the rest of your question. ... So here's the story, folks. number one: I am the least anti-Semitic person that you've ever seen in your entire life.",
-            "because there's a problem. And I will build a great wall(not the one in fucking China) -- and nobody builds walls better than me, believe me --and I'll build them very inexpensively. I will build a great, great wall on our southern border, and I will make YOU pay for that wall. Mark my words.",
-            "because I've done a tremendous job preventing people like Affan from entering our country",
-            "you need to stop asking me questions"
-        ],
-        things : [
-            "your face", "poop", "penis", "used condoms", "nothing", "the very left hair on my toe",
-            "dog food", "your left hand", "your mom's shirt", "my butt", "Kuoyuan's ear", "Ben's tongue",
-            "Heartson's mom's secret male friend Joe's tip", "a hot chick", "two hot chicks", "three hot chicks",
-            "many hot chicks", "trash", "tears", "trees", "pugs", "a chair", "sacrificed food", "pork"
-        ],
-        times : [
-            "Not today baby, not today", "not now", "RIGHT NOW", "Don't worry about it",
-            "in an hour", "before the dawn", "sunset", "Next year", "when Trump retires",
-            "year 1776","year 6666","winter", "last fall", "next spring", "every fucking summer", "a minute ago",
-            "uhhh last week?", "lmao it was yesterday", "not gonna happen until another 500 years",
-            {url:"https://www.youtube.com/watch?v=3y7rqHYNP0Y"}
-        ],
-        places : [
-            "I don't fucking know", "I seriously have no idea", "Could be anywhere",
-            "In the North Pole", "Hogwarts", "in my pants", "on someone's bed", "Dean's office",
-            "in a wonderful place where evil doesn't exist", "Nirvana", "yard where all the boy are at"
-        ],
-        amount : [
-            "a lot", "a shit ton", "not so much", "none at all", "you don't need to know",
-            "that is sensitive personal information", "less than the amount of fat in your body",
-            "ask Kuoyuan"
-        ],
-        ways : [
-            "by seppuku", "Don't worry about it", "not possible", "There's no way",
-            "Never heard of that", " can be achieved with a three step process: \n - git good \n - stop being cucked \n - give Kuoyuan a call",
-            "IKR it doesn't make any sense, I don't see how either", "kys", "stop being a mank",
-            "lmao you're asking me? how? lmfao", "uhhhh \nhow the fuck would I know that?", "Kuoyuan knows"
-        ],
-        people : [
-            "Donald Trump", "Someone better looking than you",
-            "Someone you don't know", "There's no such person",
-            "My mom", "Kuoyuan!", "IT'S KUOYUAN!!! ", "Not me.", "Ben's brother's neighbor's litter sister's teacher's dog",
-            "definitely not Kuoyuan", "I seriously have no clue" ,"Give me a break, ask someone else",
-            "you know who would know that? \nnot me, so gtfo", "uhhh Steve Jobs",
-            "William Gates", "Bill Howard Taft", "Bill Shakespeare", "William Nye",
-            {url: 'https://www.youtube.com/watch?v=zO9RzrhYR-I'}
+const login = require("facebook-chat-api");
+const fs = require('fs');
+var exports = module.exports= {};
+var api;
+login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, fbapi) => {
+    api = fbapi;
+});
 
-        ],
-        answers : [
-            "Time will tell",
-            "yes",
-            "YES",
-            "Of course",
-            "Obviously",
-            "NO",
-            "nah",
-            "naw you crazy",
-            "never",
-            "why does it matter?",
-            "mind your own business",
-            "maybe \nmaybe not",
-            "fo sho man. ayyy that's my {insert racial slur here}",
-            "you know who would know the answer to that? ME! but im not telling you",
-            "0",
-            "1",
-            "same answer as whether McDonald's will become the best fast food company",
-            "same answer as whether I like food",
-            "idk \nidc",
-            "That, is a good question and as I was saying, McDonald's has been doing surprisingly well",
-            "give me 5 sec and ask again",
-            "Idgaf ask someone else",
-            "what? no, hell no",
-            "ayyyy for sure",
-            "spell it with me \n y \n e \n s \ncome on its yes",
-            "no means no",
-            {body: "seulpeohajima no no no\nhonjaga anya no no no", url:"https://www.youtube.com/watch?v=dbQ5FSnExYg"},
-            {body: "uhhh yes\nI mean no...\nactually maybe", url:"https://www.youtube.com/watch?v=b34ri3-uxks"},
-            {body: "say yes", url:"https://www.youtube.com/watch?v=vT-raVIAT9A"}
-        ],
-        greetings : [
-            "what up my homie",
-            "what is updog?",
-            "sup dawg",
-            "hey",
-            "heyo",
-            "sup",
-            "what's good",
-            "how you doing",
-            "you talking to me?",
-            {url: "https://www.youtube.com/watch?v=skZxb5sBoiU"},
-            "hi",
-            "helllo",
-            "hey there girl ;)",
-            "oh hi didn't see you there",
-            "ooh hiiii, ^_^ you're really pretty. can I have your number?",
-            "so I asked siri what I should say to a cute girl who greeted me, she said tell her:'you auto-complete me'",
-            "oooh look at you, cute guy, you are looking hella fine today",
-            "wasuuuuh",
-            "what up",
-            "hi, how are you?",
-            "hola",
-            "你好",
-            "Bonjour",
-            "Hallo",
-            "こんにちは",
-            "Salve",
-            "안녕하세요"
-        ],
-        commandExplanation : {
-            hitTheLights: "changes the chat color 10 times",
-            answer: "Answers your question seriously. \ncan answer math questions(integral, derivative) \nPS: If you have a legitimate question, I have a legitimate answer",
-            honest: "Unpredictable response. But will be my most honest answers. Guaranteed. \nCan answer who, where, when, why, how, how much.",
-            search: "Searches facebook users for a closest match to the input name",
-            kick: "Removes a user from the group chat. if there's number after the command, e.g. bro kick PERSON 5, the person will be kicked for 5 seconds then added back to the chat",
-            add: "Adds a user to the group chat",
-            wakeUp: "Messages the user 'hey wake up!' 10 times if the user is in current group chat. If not, will message 'Someone wants me to wake you up'",
-            set: "Sets the nickname for a user",
-            define: "Returns the best definitions for the input word",
-            synonym: "Returns synonyms for the input word",
-            mute: "Mutes the bot's easter eggs",
-            unmute: "Unmutes the bot's easter eggs",
-            greet: "Say hello, hi, hey, etc. to me. Example:hi bro, sup bro, wuzzup bro, etc",
-            alive: "Is used to check if bot is working",
-            r: "Returns a post from a subreddit. Syntax: bro r/dankmemes",
-            triviaNumber: "Finds a fun fact about a number. Example: 'bro trivia number 16'",
-            triviaYear: "Finds a fun fact about a year. Example: 'bro trivia year 1266'",
-            triviaDate: "Finds a fun fact about a date. Example: 'bro trivia date 10/4' ",
-            triviaMath: "Finds a math fun fact about a number. Example: 'bro trivia math 1043'"
+exports.ranColor = function() {
+    const letters = '0123456789ABCDEF';
+    var color = '#';
+    for (let i = 0; i < 6; i++) { // Hex
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 
-        },
-        basic: `Hi people of this group chat, I am a facebook chat bot. The commands to use me are
-        -bro alive
-        -greet me(say hi, etc)
-        -bro hit the lights
-        -bro answer{question}
-        -bro honest answer{question}
-        -bro search {name}
-        -bro gtfo
-        -bro kick {name} [duration]
-        -bro add {name}
-        -bro wake up {name}
-        -bro set {name} nickname {nickname}
-        -bro define {word}
-        -bro synonym {word}
-        -bro mute
-        -bro unmute
-        -bro r/ (returns a post from a subreddit)
-        -bro trivia number {number}
-        -bro trivia year {year}
-        -bro trivia math {number}
-        -bro trivia date {month/day}
-        -super command (can only be accessed with a secret cheat code)
-        Tip: use bro help {command} to get details about a command`
-    },
-    commands : {
-        alive:/bro help alive/i,
-        triviaNumber: /bro help trivia number/i,
-        triviaYear: /bro help trivia year/i,
-        triviaDate: /bro help trivia date/i,
-        triviaMath: /bro help trivia math/i,
-        greet:/bro help greet me/i,
-        hitTheLights:/bro help hit the lights/i,
-        answer: /bro help answer/i,
-        honest: /bro help honest answer/i,
-        search: /bro help search/i,
-        gtfo: /bro help gtfo/i,
-        kick: /bro help kick/i,
-        add: /bro help add/i,
-        wakeUp: /bro help wake up/i,
-        set: /bro help set/i,
-        define: /bro help define/i,
-        synonym: /bro help synonym/i,
-        mute: /bro help mute/i,
-        unmute: /bro help unmute/i,
-        r: /bro help r\//i
-    },
-    easterEggs : {
-        broCode: "Bro Code\nArticle 1 - Bros before ho’s\nArticle 2 : A bro is always entitled to do something stupid, as long as the rest of his Bros are all doing it\nArticle 3 : If a Bro gets a dog, it must be at least as tall as his knee when full-grown\nArticle 4 : A Bro never divulges the existence of The Bro Code to a woman. It is a sacred document not to be shared with chicks for any reason… no, not even that reason\nArticle 10 : A Bro will drop whatever he’s doing and rush to help his Bro dump a chick\nArticle 31 - A bro must always oblige to fulfill the actions of a double-dog dare\nArticle 34 - Bros cannot make eye contact during a devils three-way\nArticle 62 - A bro that calls dibs first, has dibs \nArticle 78 - A Bro shall never rack jack his wingman\nArticle 104 - The mom of a bro is always off limits, unless she is a step-mom and she initiates it and/or is wearing one or more articles of leopard print clothing",
-        bruh: "yeah?",
-        wasabi: "Da fuk you just say? \n who you calling wasabi",
-        mank: "who you calling a mank? \n you wanna go?",
-        merit: "are you worthless? \n you have absolutely no merit to society",
-        brownie: "hehe brownie, good times",
-        fbla: "FUCK RIVERHILL",
-        konami:"↑ ↑ ↓ ↓ ← → ← → B A"
-    },
-    groups : []
+exports.repeat = function(counter, interval, duration, code) { //recursively sets time interval
+    if (counter < duration) {
+        setTimeout(() => {
+            counter++;
+            eval(code); //executes a line of code
+            repeat(counter, interval, duration, code); //recursion
+        }, interval); //changes every half a second
+    }
+}
 
+exports.download = function(url, filename, callback) {//downloads an image
+    request.head(url, function(err, res, body){
+        request(url).pipe(fs.createWriteStream(filename)).on('close', callback);
+    });
+}
 
+exports.text = function(content, exp, TheMessage, length) { //checks if the regex matches, if so, will send a text
+    //if random number is needed
+    //length represents range of random number
+    if (exp.test(content)) {
+        var ran = Math.floor(Math.random() * (length));
+        api.sendMessage(TheMessage[ran], message.threadID);
+    }
+}
+
+exports.easter = function(content, exp, TheMessage) { //for easter egg
+    if (exp.test(content)) {
+        api.sendMessage(TheMessage, message.threadID); //sends message to the group
+    }
+}
+
+exports.synMashapeWord = function(url) {
+    var msg = "";
+    unirest.get(url).header("X-Mashape-Key", wordKey) //set header
+    .header("Accept", "application/json") //set header
+    .end((result) => {
+        if (result.statusCode == 200) { //if no error in status code
+            if (result.body.synonyms.length > 0) {
+                for (let i = 0; i < result.body.synonyms.length; i++) { //adds each synonym in the list to the message
+                    if (i === result.body.synonyms.length - 1)
+                    msg += result.body.synonyms[i];
+                    else
+                    msg += result.body.synonyms[i] + ", ";
+                }
+                api.sendMessage(msg, message.threadID);
+            } else {
+                api.sendMessage("Error: No synonym found", message.threadID);
+            }
+        } else {
+            api.sendMessage("Error: No synonym found", message.threadID);
+        }
+    });
+}
+
+exports.antMashapeWord = function(url) {
+    var msg = "";
+    unirest.get(url).header("X-Mashape-Key", wordKey) //set header
+    .header("Accept", "application/json") //set header
+    .end((result) => {
+        if (result.statusCode == 200) { //if no error in status code
+            if (result.body.antonyms.length > 0) {
+                for (let i = 0; i < result.body.antonyms.length; i++) { //adds each synonym in the list to the message
+                    if (i === result.body.antonyms.length - 1)
+                    msg += result.body.antonyms[i];
+                    else
+                    msg += result.body.antonyms[i] + ", ";
+                }
+                api.sendMessage(msg, message.threadID);
+            } else {
+                api.sendMessage("Error: No antonyms found", message.threadID);
+            }
+        } else {
+            api.sendMessage("Error: No antonyms found", message.threadID);
+        }
+    });
+}
+
+exports.defMashapeWord = function(url) { //request to Mashape server
+    unirest.get(url).header("X-Mashape-Key", wordKey) //set header
+    .header("Accept", "application/json") //set header
+    .end((result) => {
+        if (result.statusCode == 200) { //if no error in status code
+            if (result.body.definitions.length >= 2) { //returns the first 2 definitions
+                setTimeout(() => { //makes sure definition 2 comes after definition 1
+                    api.sendMessage("-Definition 2: " + result.body.definitions[1].definition +
+                    "\n-Part of Speech: " + result.body.definitions[1].partOfSpeech,
+                    message.threadID);
+                }, 300);
+                api.sendMessage("-Definition 1: " + result.body.definitions[0].definition +
+                "\n-Part of Speech: " + result.body.definitions[0].partOfSpeech, message.threadID);
+            } else if (result.body.definitions.length >= 1) {
+                api.sendMessage("-Definition 1: " + result.body.definitions[0].definition +
+                "\n-Part of Speech: " + result.body.definitions[0].partOfSpeech, message.threadID);
+            } else {
+                api.sendMessage("Error: No definition found", message.threadID);
+            }
+        } else {
+            api.sendMessage("Error: No definition found", message.threadID);
+        }
+    });
+}
+
+exports.kick = function(name){
+    api.getUserID(name, (err, data) => {
+        const id = data[0].userID; //user id for input name
+        existsInGroup(id, message.threadID, (check) => {
+            if (check) {
+                api.removeUserFromGroup(id, message.threadID);
+            } else {
+                api.sendMessage(name + " is not in this group chat", message.threadID);
+            }
+        });
+    });
+}
+
+exports.addToGroup = function(name, counter){
+    api.getUserID(name, (err, data) => {
+        const id = data[0].userID; //user id for input name
+        existsInGroup(id, message.threadID, (exists) => {
+            if (exists) { //the user is in this group chat
+                api.sendMessage(name + " is already in this group chat", message.threadID);
+            } else { //the user isn't in this group chat
+            // setTimeout(() => { //delay between messages
+            //     api.sendMessage("welcome, " + name, message.threadID);
+            // }, 1);
+            api.addUserToGroup(id, message.threadID, ()=>{
+                existsInGroup(id, message.threadID, (exists) => {
+                    if(!exists){
+                        if(counter < 10){
+                            add(name, counter+1);
+                        }
+                    }
+                });
+            });
+        }
+    });
+});
+}
+
+exports.existsInGroup = function(id, threadID, callback) {//checks if a user exists in a group
+var exist = false;
+api.getThreadInfo(threadID, (err, info) => {
+    for (let i = 0; i < info.participantIDs.length; i++) {
+        if (info.participantIDs[i] == id) { //the user is in this group chat
+            exist = true;
+        }
+    }
+    if (exist) {
+        callback(true);
+    } else {
+        callback(false);
+    }
+});
+}
+
+exports.downloadYT = function(link, filename, callback){
+var video = youtubedl(link);
+video.on('info', function(info) {
+    api.sendMessage("This is gonna take a few seconds...", message.threadID);
+    console.log('Download started');
+    console.log('filename: ' + info._filename);
+    console.log('size: ' + info.size);
+});
+
+video.pipe(fs.createWriteStream(filename)).on('close', callback);
+
+}
+
+exports.parseBody = function(url){
+request.get(url, (error, response, body) => { //gets response from a url
+    if(error){
+        api.sendMessage("Error",message.threadID);
+    }else {
+        api.sendMessage(body, message.threadID);
+    }
+});
 }
