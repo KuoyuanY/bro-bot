@@ -1,5 +1,8 @@
 var url = 'mongodb://localhost:27017/myproject';
 var exports = module.exports = {};
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var ObjectId = require('mongodb').ObjectID;
 
 exports.connectDB = function(callback){
     MongoClient.connect(url, (err, db) => {
@@ -10,6 +13,26 @@ exports.connectDB = function(callback){
             callback(null, db);
         }
     });
+}
+
+exports.collectionExists = function(db, collectionName, callback){
+    var exists = false;
+    db.collections((err, collections) => {
+       if(err){
+           throw err;
+       } else {
+           for(let i = 0; i < collections.length; i++){
+               if(collections[i].s.name === collectionName){
+                   exists = true;
+               }
+           }
+           if(exists){
+               callback(true);
+           } else{
+               callback(false);
+           }
+       }
+  });
 }
 
 exports.insert = function(db, object, collection, callback){//insert document
