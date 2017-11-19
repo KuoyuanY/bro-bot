@@ -1,8 +1,26 @@
 # bro-bot
-facebook chat bot that responds to messages in group chat.
-uses wolfram alpha short answer API to answer users' questions.
-uses mashape word API to define and find synonyms of input word.
+facebook chat bot that parses messages and react or execute commands from users
+     
+## Here are different ways to use the bot:
+![greeting](pics/HowToUseBot/greet.png)
+    
+![bro add](pics/HowToUseBot/add.png "To add a user to group chat")
 
+![bro kick](pics/HowToUseBot/kick.png "To kick a user from group chat")
+
+![bro trivia number](pics/HowToUseBot/triviaNumber.png)
+
+![bro trivia year](pics/HowToUseBot/triviaYear.png)
+
+### Brobot can also respond to various types of questions
+![bro answer](pics/HowToUseBot/answer.png)
+
+![bro honest answer](pics/HowToUseBot/honestAnswer.png)
+
+![bro r/ ](pics/HowToUseBot/reddit.png)
+
+![bro r/ ](pics/HowToUseBot/reddit2.png)
+    
 ## Set up
 First clone the repository:
 ```
