@@ -2,6 +2,8 @@
 facebook chat bot that parses messages and react or execute commands from users
      
 ## Here are different ways to use the bot:
+
+### performing basic tasks:
 ![greeting](pics/HowToUseBot/greet.png)
     
 ![bro add](pics/HowToUseBot/add.png "To add a user to group chat")
@@ -12,11 +14,13 @@ facebook chat bot that parses messages and react or execute commands from users
 
 ![bro trivia year](pics/HowToUseBot/triviaYear.png)
 
-### Brobot can also respond to various types of questions
+### responding to various types of questions:
+
 ![bro answer](pics/HowToUseBot/answer.png)
 
-![bro honest answer](pics/HowToUseBot/honestAnswer.png)
+![bro honest answer](pics/HowToUseBot/HonestAnswer.png)
 
+### pulling posts from reddit:
 ![bro r/ ](pics/HowToUseBot/reddit.png)
 
 ![bro r/ ](pics/HowToUseBot/reddit2.png)
