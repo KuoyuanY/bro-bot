@@ -347,7 +347,7 @@ login({
                                     });
                                 });
                             });
-                        }else {//the post is a picture
+                        }else if(/\.(png|jpg)$/i.test(link)){// the post is a picture
                             download(link, 'dank.png', ()=> {//downloads the image
                                 console.log("downloaded image");
                                 var msg = {
@@ -361,10 +361,36 @@ login({
                                     });
                                 });
                             });
+                        }else if(/imgur\.com/i.test(link)){//from imgur
+                            request({
+                               url : link
+                            }, (err, res, body) =>{
+                               var curr = body;
+                               var pos = curr.search(/<div class="post-image">/);
+                               curr = curr.substring(pos);
+                               var imgurPos = curr.search(/i\.imgur/);
+                               curr = curr.substring(imgurPos);
+                               var endPos = curr.search(/\.(jpg|png)/) + 4;
+                               var imageurl = "http://" + curr.substring(0, endPos);
+
+
+                               download(imageurl, "dank.png", ()=> {//downloads the image
+                                   console.log("downloaded image");
+                                   var msg = {
+                                       body: answer.data.children[rng].data.title,
+                                       attachment: fs.createReadStream("dank.png")
+                                   };
+                                   api.sendMessage(msg, message.threadID, ()=>{
+                                       fs.unlink("dank.png", (err) => {//deletes the image after use
+                                           if (err) throw err;
+                                           console.log('deleted image');
+                                       });
+                                   });
+                               });
+                           });
+                        }else {//can't identify the type of post
+                             api.sendMessage("Something went wrong, \nTry again." ,message.threadID)
                         }
-                        //  else {//can't identify the type of post
-                        //     api.sendMessage("Uhhh...\nTry again..." ,message.threadID)
-                        // }
                     }
                 }
             });
