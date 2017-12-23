@@ -468,19 +468,13 @@ login({
         && !func.triggers.when.test(message.body) && !func.triggers.when.test(message.body)
         && !func.triggers.where.test(message.body) && !func.triggers.howMuch.test(message.body)
         && !func.triggers.how.test(message.body) && !func.triggers.who.test(message.body)) {
-            text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
-        }
-
-        if(func.triggers.tldr.test(message.body)){
-
-        }
-
-        if(func.triggers.endTopic.test(message.body)){
-
-        }
-
-        if(func.triggers.startTopic.test(message.body)){
-
+            if(/\.(\.)+$/.test(message.body) && func.triggers.honestAnswer.test(message.body)){//cheating yes
+                api.sendMessage("Yes....", message.threadID);
+            }else if(/\/$/.test(message.body) && func.triggers.honestAnswer.test(message.body)){//cheating no
+                api.sendMessage("I don't think so....", message.threadID);
+            }else{
+                text(message.body, func.triggers.honestAnswer, func.triggers.answers, func.triggers.answers.length);
+            }
         }
 
         if(func.triggers.trivia.test(message.body)){
