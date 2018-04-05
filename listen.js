@@ -548,18 +548,7 @@ login({
             reddit(query);
         }
 
-        if(/^bro food/i.test(message.body)){
-            var list = ["r/prettygirls", "r/gentlemanboners", "r/celebs"];
-            var subreddit = list[Math.floor(Math.random()*3)];
-            reddit(subreddit);
-        }
-        if(/^bro mooncake/i.test(message.body)){
-            reddit("r/realasians");
-        }
-
-        if(/^bro paneer/i.test(message.body)){
-            reddit("r/indiangirls");
-        }
+       
 
 
         if(func.triggers.unban.test(message.body)){//unbans a user
