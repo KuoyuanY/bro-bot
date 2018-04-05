@@ -14,7 +14,6 @@ module.exports = {
         tldr : /bro tldr/i,
         startTopic :/bro start topic/i,
         endTopic : /bro end topic/i,
-        angryReacts: /fuck|fk|cuck|shit|racist|sexist|racism|gender|trump|penis|dick|vagina/i,
         youRight: /you right|u right|u rite|you rite|you're right|ur right| you're rite|ur rite/i,
         loveReacts : /prostitute|stripper|porn star|emma watson|taylor swift|megan fox|heidi klum|yiyi kuang|nipple/i,
         hitTheLights : /bro hit the lights/i,
