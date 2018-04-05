@@ -407,10 +407,7 @@ login({
                 api.setMessageReaction(":haha:", message.messageID);
             }
             //love react
-            if(func.triggers.loveReacts.test(message.body) ||
-            func.triggers.youRight.test(message.body)){
-                api.setMessageReaction(`😍`, message.messageID);
-            }
+            
             //These are picture easter eggs
             if(func.triggers.pregnant.test(message.body)){
                 const msg = {
