@@ -26,6 +26,7 @@ facebook chat bot that parses messages and react or execute commands from users
 ![bro r/ ](pics/HowToUseBot/reddit2.png)
     
 ## Set up
+
 First clone the repository:
 ```
 $ git clone https://github.com/y9y9l5m6/bro-bot.git
@@ -33,6 +34,10 @@ $ git clone https://github.com/y9y9l5m6/bro-bot.git
 Go into bro-bot directory:
 ```
 $ cd bro-bot
+```
+Make sure Node and Python3 are installed. Install beautifulSoup:
+```
+$ pip install beautifulsoup4
 ```
 Install all dependencies:
 ```
@@ -48,7 +53,7 @@ Run login.js to generate appstate.json file
 ```
 $ node login.js
 ```
-In listen.js file, change the API keys to your own API keys
+In listen.js file, change the API keys to your own API keys from Mashape API and Wolfram Alpha API
 ```javascript
 const wordKey = "API key"
 const wolframKey = "wolframKey"
