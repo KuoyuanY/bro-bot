@@ -50,6 +50,7 @@ login({
             api.sendMessage(msg, message.threadID);
         }
         //These are message easter eggs
+        easter(message.body, func.triggers.sheSaid, func.easterEggs.sheSaid);
         easter(message.body, func.triggers.konami, func.easterEggs.konami);
         easter(message.body, func.triggers.broCode, func.easterEggs.broCode);
         easter(message.body, func.triggers.wasabi, func.easterEggs.wasabi);

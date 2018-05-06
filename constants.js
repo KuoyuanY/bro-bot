@@ -22,6 +22,7 @@ module.exports = {
         cheat: /↑ ↑ ↓ ↓ ← → ← → B A|up up down down left right left right B A/i,
         messUp: /^bro mess up/i,
         merit : /merit/i,
+        sheSaid : /(.*so (small|tiny|enormous|gigantic|huge|big))|((won'?t|can'?t|doesn'?t|don'?t|not gonna) fit)/i,
         mank : /mank/i,
         pregnant : /pregnant/i,
         wasabi : /wasabi/i,
@@ -195,14 +196,14 @@ module.exports = {
             set: "Sets the nickname for a user",
             define: "Returns the best definitions for the input word",
             synonym: "Returns synonyms for the input word",
-            greet: "Say hello, hi, hey, etc. to me. Example:hi bro, sup bro, wuzzup bro, etc",
+            greet: "Say hello, hi, hey, etc. to me.\nExample:hi bro, sup bro, wuzzup bro, etc",
             alive: "Is used to check if bot is working",
-            r: "Returns a post from a subreddit. Syntax: bro r/dankmemes",
-            triviaNumber: "Finds a fun fact about a number. Example: 'bro trivia number 16'",
-            triviaYear: "Finds a fun fact about a year. Example: 'bro trivia year 1266'",
-            triviaDate: "Finds a fun fact about a date. Example: 'bro trivia date 10/4' ",
-            triviaMath: "Finds a math fun fact about a number. Example: 'bro trivia math 1043'",
-            gened: "Finds easiest geneds based on categories. Syntax: bro gened 2018 fall DSHU,DVUP.\nNote:geneds must be separated by comma only"
+            r: "Returns a post from a subreddit.\nExample: bro r/dankmemes",
+            triviaNumber: "Finds a fun fact about a number.\nExample: 'bro trivia number 16'",
+            triviaYear: "Finds a fun fact about a year.\nExample: 'bro trivia year 1266'",
+            triviaDate: "Finds a fun fact about a date.\nExample: 'bro trivia date 10/4' ",
+            triviaMath: "Finds a math fun fact about a number.\nExample: 'bro trivia math 1043'",
+            gened: "Finds easiest geneds based on categories.\nExample: bro gened 2018 fall DSHU,DVUP.\nNote:geneds must be separated by comma only"
 
         },
         basic: `Hi people of this group chat, I am a facebook chat bot. The commands to use me are
@@ -253,7 +254,8 @@ module.exports = {
         merit: "are you worthless? \n you have absolutely no merit to society",
         brownie: "hehe brownie, good times",
         fbla: "FUCK RIVERHILL",
-        konami:"↑ ↑ ↓ ↓ ← → ← → B A"
+        konami:"↑ ↑ ↓ ↓ ← → ← → B A",
+        sheSaid:"That's what she said."
     },
     groups : []
 
