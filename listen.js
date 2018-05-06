@@ -96,6 +96,20 @@ login({
             }
         }
 
+        if(func.triggers.gened.test(message.body)){//bro gened 2018 fall DSHU,DVUP
+            const args = message.body.split(" ");
+            const year = args[2];
+            const season = args[3];
+            const cat = args[4];
+            const spawn = require("child_process").spawn;
+            //python3 parse.py -s fall -y 2018 -c DSHU,DVUP
+            var pythonProcess = spawn('python3',["parse.py", '-s', season, '-y', year, '-c', cat]);
+            pythonProcess.stdout.on('data', (data) => {//data returned from python file
+                console.log(data.toString());
+                api.sendMessage(data.toString(), message.threadID);
+            });
+        }
+
         if(func.triggers.trivia.test(message.body)){
             const position = message.body.indexOf(func.triggers.trivia) + 12;
             const substring = message.body.substring(position);

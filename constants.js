@@ -8,6 +8,7 @@ module.exports = {
         what : /^bro honest answer what/i,
         when : /^bro honest answer when/i,
         honestAnswer : /^bro honest answer/i,
+        gened: /^bro gened/i,
         answer : /^bro answer/i,
         r :/^bro r\//i,
         trivia : /^bro trivia/i,
@@ -65,7 +66,7 @@ module.exports = {
             "dog food", "your left hand", "your mom's shirt", "my butt", "Kuoyuan's ear", "My tongue",
             "my friend's mom's secret male friend Joe's tip", "a hot chick", "two hot chicks", "three hot chicks",
             "many hot chicks", "trash", "tears", "trees", "pugs", "a chair", "sacrificed food", "pork", "mom's spaghetti",
-            "my mind", "my laptop", "hmmmm", "Morty's butthole", "Rick's pickle"
+            "my mind", "my laptop", "hmmmm", "Morty's butthole", "Rick's pickle", "memes"
         ],
         times : [
             "Not today baby, not today", "not now", "RIGHT NOW", "Don't worry about it",
@@ -73,7 +74,8 @@ module.exports = {
             "year 1776","year 6666","winter", "last fall", "next spring", "every fucking summer", "a minute ago",
             "uhhh last week?", "lmao it was yesterday", "not gonna happen until another 500 years",
             {url:"https://www.youtube.com/watch?v=3y7rqHYNP0Y"}, "uhhhhh ask again later", "tomorrow for sure",
-            "when Rick and Morty season 5 comes out", "when Hillary becomes president"
+            "when Rick and Morty season 6 comes out", "when Hillary becomes president",
+            "when kuoyuan is 6 ft, which is right now if you didn't know, visit me at tinder/kuoyuan"
         ],
         places : [
             "I don't fucking know", "I seriously have no idea", "Could be anywhere",
@@ -86,7 +88,7 @@ module.exports = {
         amount : [
             "a lot", "a shit ton", "not so much", "none at all", "you don't need to know",
             "that is sensitive personal information", "less than the amount of fat in your body",
-            "ask Kuoyuan", "ask again later", "don't worry about it", "hmmm"
+            "ask Kuoyuan", "ask again later", "don't worry about it", "hmmm", "idc, kys"
         ],
         ways : [
             "by seppuku", "Don't worry about it", "not possible", "There's no way",
