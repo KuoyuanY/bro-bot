@@ -1,53 +1,50 @@
 module.exports = {
     triggers:{              //regex that trigger the bot
-        who : /bro honest answer who/i,
-        why : /bro honest answer why/i,
-        how : /bro honest answer how/i,
-        howMuch : /bro honest answer how much/i,
-        where : /bro honest answer where/i,
-        what : /bro honest answer what/i,
-        when : /bro honest answer when/i,
-        honestAnswer : /bro honest answer/i,
-        answer : /bro answer/i,
-        r :/bro r\//i,
-        trivia : /bro trivia/i,
-        tldr : /bro tldr/i,
-        startTopic :/bro start topic/i,
-        endTopic : /bro end topic/i,
+        who : /^bro honest answer who/i,
+        why : /^bro honest answer why/i,
+        how : /^bro honest answer how/i,
+        howMuch : /^bro honest answer how much/i,
+        where : /^bro honest answer where/i,
+        what : /^bro honest answer what/i,
+        when : /^bro honest answer when/i,
+        honestAnswer : /^bro honest answer/i,
+        answer : /^bro answer/i,
+        r :/^bro r\//i,
+        trivia : /^bro trivia/i,
+        tldr : /^bro tldr/i,
+        startTopic :/^bro start topic/i,
+        endTopic : /^bro end topic/i,
         youRight: /you right|u right|u rite|you rite|you're right|ur right| you're rite|ur rite/i,
-        hitTheLights : /bro hit the lights/i,
-        help : /bro help$/i,
-        greet: /^hi bro|hey bro|hello bro|up bro|how are you bro|fuck you bro|yo bro|bro fuck you/i,
+        help : /^bro help$/i,
+        greet: /^hi bro|hey bro|hello bro|(s|z|\s)up bro|how are you bro|screw you bro|yo bro/i,
         konami: /konami code/i,
         cheat: /↑ ↑ ↓ ↓ ← → ← → B A|up up down down left right left right B A/i,
-        messUp: /bro mess up/i,
+        messUp: /^bro mess up/i,
         merit : /merit/i,
         mank : /mank/i,
         pregnant : /pregnant/i,
         wasabi : /wasabi/i,
         bruh : /bruh/i,
+        wtf : /what the actual fuck|what the fuck|dafuq/i,
         holyShit : /holy shit/i,
         city : /city/i,
         state : /state/i,
         country : /country/i,
         brownie : /brownie/i,
-        nuts : /^nuts|balls|gonads|room\b|bet\b/i,
         fbla: /fbla/i,
-        ban: /bro ban/i,
-        unban: /bro unban/i,
-        search: /bro search/i,
-        add: /bro add/i,
-        kick: /bro kick/i,
-        wake: /bro wake up/i,
-        gtfo: /bro gtfo/i,
-        set: /bro set/i,
+        ban: /^bro ban/i,
+        unban: /^bro unban/i,
+        search: /^bro search/i,
+        add: /^bro add/i,
+        kick: /^bro kick/i,
+        wake: /^bro wake up/i,
+        gtfo: /^bro gtfo/i,
+        set: /^bro set/i,
         nickname: /nickname/i,
         broCode: /bro code/i,
         define: /bro define/i,
         antonym: /bro antonym/i,
         synonym: /bro synonym/i,
-        mute: /bro mute/i,
-        unmute: /bro unmute/i,
         upvote: /bro \+\+/i,
         downvote: /bro \-\-/i,
         //answers to why
@@ -61,30 +58,35 @@ module.exports = {
             "first of all, I will definitely answer your question. and I just wanna say: Not a simple question. Not a fair question. Okay, sit down. I understand the rest of your question. ... So here's the story, folks. number one: I am the least anti-Semitic person that you've ever seen in your entire life.",
             "because there's a problem. And I will build a great wall(not the one in fucking China) -- and nobody builds walls better than me, believe me --and I'll build them very inexpensively. I will build a great, great wall on our southern border, and I will make YOU pay for that wall. Mark my words.",
             "because I've done a tremendous job preventing people like Affan from entering our country",
-            "you need to stop asking me questions"
+            "you need to stop asking me questions", "ask again later", "Did I tell you to ask again later?"
         ],
         things : [
             "your face", "poop", "penis", "used condoms", "nothing", "the very left hair on my toe",
-            "dog food", "your left hand", "your mom's shirt", "my butt", "Kuoyuan's ear", "Ben's tongue",
-            "Heartson's mom's secret male friend Joe's tip", "a hot chick", "two hot chicks", "three hot chicks",
-            "many hot chicks", "trash", "tears", "trees", "pugs", "a chair", "sacrificed food", "pork"
+            "dog food", "your left hand", "your mom's shirt", "my butt", "Kuoyuan's ear", "My tongue",
+            "my friend's mom's secret male friend Joe's tip", "a hot chick", "two hot chicks", "three hot chicks",
+            "many hot chicks", "trash", "tears", "trees", "pugs", "a chair", "sacrificed food", "pork", "mom's spaghetti",
+            "my mind", "my laptop", "hmmmm", "Morty's butthole", "Rick's pickle"
         ],
         times : [
             "Not today baby, not today", "not now", "RIGHT NOW", "Don't worry about it",
             "in an hour", "before the dawn", "sunset", "Next year", "when Trump retires",
             "year 1776","year 6666","winter", "last fall", "next spring", "every fucking summer", "a minute ago",
             "uhhh last week?", "lmao it was yesterday", "not gonna happen until another 500 years",
-            {url:"https://www.youtube.com/watch?v=3y7rqHYNP0Y"}
+            {url:"https://www.youtube.com/watch?v=3y7rqHYNP0Y"}, "uhhhhh ask again later", "tomorrow for sure",
+            "when Rick and Morty season 5 comes out", "when Hillary becomes president"
         ],
         places : [
             "I don't fucking know", "I seriously have no idea", "Could be anywhere",
             "In the North Pole", "Hogwarts", "in my pants", "on someone's bed", "Dean's office",
-            "in a wonderful place where evil doesn't exist", "Nirvana", "yard where all the boy are at"
+            "in a wonderful place where evil doesn't exist", "Nirvana", "yard where all the boy are at",
+            "don't worry about it", "Heaven", "Hell", "next to Jesus", "Rick's garage", "1st President D.C",
+            "above my head", "in my hand", "check the bathroom on second floor of my apartment",
+            "Poké Center"
         ],
         amount : [
             "a lot", "a shit ton", "not so much", "none at all", "you don't need to know",
             "that is sensitive personal information", "less than the amount of fat in your body",
-            "ask Kuoyuan"
+            "ask Kuoyuan", "ask again later", "don't worry about it", "hmmm"
         ],
         ways : [
             "by seppuku", "Don't worry about it", "not possible", "There's no way",
@@ -93,12 +95,12 @@ module.exports = {
             "lmao you're asking me? how? lmfao", "uhhhh \nhow the fuck would I know that?", "Kuoyuan knows"
         ],
         people : [
-            "Donald Trump", "Someone better looking than you",
-            "Someone you don't know", "There's no such person",
+            "Donald Trump", "Someone better looking than you", "me\n me\n me\n me\n me\n me\n me\n me\n me\n me\n",
+            "Someone you don't know", "There's no such person", "Harry Styles", "The Rock", "FART!",
             "My mom", "Kuoyuan!", "IT'S KUOYUAN!!! ", "Not me.", "Ben's brother's neighbor's litter sister's teacher's dog",
             "definitely not Kuoyuan", "I seriously have no clue" ,"Give me a break, ask someone else",
-            "you know who would know that? \nnot me, so gtfo", "uhhh Steve Jobs",
-            "William Gates", "Bill Howard Taft", "Bill Shakespeare", "William Nye",
+            "you know who would know that? \nnot me, so gtfo", "uhhh Steve Jobs", "ask again later", "Now that, is an interesting question.",
+            "William Gates", "Bill Howard Taft", "Bill Shakespeare", "William Nye", "You think I care because?",
             {url: 'https://www.youtube.com/watch?v=zO9RzrhYR-I'}
 
         ],
@@ -110,6 +112,8 @@ module.exports = {
             "Obviously",
             "NO",
             "nah",
+            "My mind is telling me no, but my body, MY BODY! is telling me yes!",
+            "Oh shit, there's a bug on me, ask again later",
             "naw you crazy",
             "never",
             "why does it matter?",
@@ -138,6 +142,15 @@ module.exports = {
             "what is updog?",
             "sup dawg",
             "hey",
+            "sup man",
+            "hey sexy",
+            "What's new",
+            "How's life",
+            "Howdy",
+            "Alright mate",
+            "Hiya!",
+            "You alright?",
+            "How's it going",
             "heyo",
             "sup",
             "what's good",
@@ -158,12 +171,19 @@ module.exports = {
             "你好",
             "Bonjour",
             "Hallo",
+            "Фэсапщы",
+            "Bok",
+            "今日は",
+            "Ave",
+            "Alo, Efendim",
+            "Bunâ dzuâ",
+            "(min-ga-la-ba)",
+            "Ciao",
             "こんにちは",
             "Salve",
             "안녕하세요"
         ],
         commandExplanation : {
-            hitTheLights: "changes the chat color 10 times",
             answer: "Answers your question seriously. \ncan answer math questions(integral, derivative) \nPS: If you have a legitimate question, I have a legitimate answer",
             honest: "Unpredictable response. But will be my most honest answers. Guaranteed. \nCan answer who, where, when, why, how, how much.",
             search: "Searches facebook users for a closest match to the input name",
@@ -173,8 +193,6 @@ module.exports = {
             set: "Sets the nickname for a user",
             define: "Returns the best definitions for the input word",
             synonym: "Returns synonyms for the input word",
-            mute: "Mutes the bot's easter eggs",
-            unmute: "Unmutes the bot's easter eggs",
             greet: "Say hello, hi, hey, etc. to me. Example:hi bro, sup bro, wuzzup bro, etc",
             alive: "Is used to check if bot is working",
             r: "Returns a post from a subreddit. Syntax: bro r/dankmemes",
@@ -187,7 +205,6 @@ module.exports = {
         basic: `Hi people of this group chat, I am a facebook chat bot. The commands to use me are
         -bro alive
         -greet me(say hi, etc)
-        -bro hit the lights
         -bro answer{question}
         -bro honest answer{question}
         -bro search {name}
@@ -198,8 +215,6 @@ module.exports = {
         -bro set {name} nickname {nickname}
         -bro define {word}
         -bro synonym {word}
-        -bro mute
-        -bro unmute
         -bro r/ (returns a post from a subreddit)
         -bro trivia number {number}
         -bro trivia year {year}
@@ -215,7 +230,6 @@ module.exports = {
         triviaDate: /bro help trivia date/i,
         triviaMath: /bro help trivia math/i,
         greet:/bro help greet me/i,
-        hitTheLights:/bro help hit the lights/i,
         answer: /bro help answer/i,
         honest: /bro help honest answer/i,
         search: /bro help search/i,
@@ -226,15 +240,11 @@ module.exports = {
         set: /bro help set/i,
         define: /bro help define/i,
         synonym: /bro help synonym/i,
-        mute: /bro help mute/i,
-        unmute: /bro help unmute/i,
         r: /bro help r\//i
     },
     easterEggs : {
         broCode: "Bro Code\nArticle 1 - Bros before ho’s\nArticle 2 : A bro is always entitled to do something stupid, as long as the rest of his Bros are all doing it\nArticle 3 : If a Bro gets a dog, it must be at least as tall as his knee when full-grown\nArticle 4 : A Bro never divulges the existence of The Bro Code to a woman. It is a sacred document not to be shared with chicks for any reason… no, not even that reason\nArticle 10 : A Bro will drop whatever he’s doing and rush to help his Bro dump a chick\nArticle 31 - A bro must always oblige to fulfill the actions of a double-dog dare\nArticle 34 - Bros cannot make eye contact during a devils three-way\nArticle 62 - A bro that calls dibs first, has dibs \nArticle 78 - A Bro shall never rack jack his wingman\nArticle 104 - The mom of a bro is always off limits, unless she is a step-mom and she initiates it and/or is wearing one or more articles of leopard print clothing",
         bruh: "yeah?",
-        wasabi: "Da fuk you just say? \n who you calling wasabi",
-        mank: "who you calling a mank? \n you wanna go?",
         merit: "are you worthless? \n you have absolutely no merit to society",
         brownie: "hehe brownie, good times",
         fbla: "FUCK RIVERHILL",
