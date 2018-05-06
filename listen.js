@@ -73,6 +73,7 @@ login({
         easter(message.body, func.commands.set, func.triggers.commandExplanation.set);
         easter(message.body, func.commands.define, func.triggers.commandExplanation.define);
         easter(message.body, func.commands.synonym, func.triggers.commandExplanation.synonym);
+        easter(message.body, func.commands.gened, func.triggers.commandExplanation.gened);
         //these are messages that require random number
         text(message.body, func.triggers.why, func.triggers.reasons, func.triggers.reasons.length);
         text(message.body, func.triggers.what, func.triggers.things, func.triggers.things.length);

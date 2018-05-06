@@ -201,7 +201,8 @@ module.exports = {
             triviaNumber: "Finds a fun fact about a number. Example: 'bro trivia number 16'",
             triviaYear: "Finds a fun fact about a year. Example: 'bro trivia year 1266'",
             triviaDate: "Finds a fun fact about a date. Example: 'bro trivia date 10/4' ",
-            triviaMath: "Finds a math fun fact about a number. Example: 'bro trivia math 1043'"
+            triviaMath: "Finds a math fun fact about a number. Example: 'bro trivia math 1043'",
+            gened: "Finds easiest geneds based on categories. Syntax: bro gened 2018 fall DSHU,DVUP.\nNote:geneds must be separated by comma only"
 
         },
         basic: `Hi people of this group chat, I am a facebook chat bot. The commands to use me are
@@ -211,6 +212,7 @@ module.exports = {
         -bro honest answer{question}
         -bro search {name}
         -bro gtfo
+        -bro gened {year} {season} {gen eds}
         -bro kick {name} [duration]
         -bro add {name}
         -bro wake up {name}
@@ -232,6 +234,7 @@ module.exports = {
         triviaDate: /bro help trivia date/i,
         triviaMath: /bro help trivia math/i,
         greet:/bro help greet me/i,
+        gened:/bro help gened/,
         answer: /bro help answer/i,
         honest: /bro help honest answer/i,
         search: /bro help search/i,
