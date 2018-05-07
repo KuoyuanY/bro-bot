@@ -29,7 +29,7 @@ facebook chat bot that parses messages and react or execute commands from users
 
 First clone the repository:
 ```
-$ git clone https://github.com/y9y9l5m6/bro-bot.git
+$ git clone https://github.com/yellgreniff/bro-bot.git
 ```
 Go into bro-bot directory:
 ```
