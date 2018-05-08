@@ -187,40 +187,39 @@ module.exports = {
             "안녕하세요"
         ],
         commandExplanation : {
-            answer: "Answers your question seriously. \ncan answer math questions(integral, derivative) \nPS: If you have a legitimate question, I have a legitimate answer",
-            honest: "Unpredictable response. But will be my most honest answers. Guaranteed. \nCan answer who, where, when, why, how, how much.",
-            search: "Searches facebook users for a closest match to the input name",
-            kick: "Removes a user from the group chat. if there's number after the command, e.g. bro kick PERSON 5, the person will be kicked for 5 seconds then added back to the chat",
-            add: "Adds a user to the group chat",
-            wakeUp: "Messages the user 'hey wake up!' 10 times if the user is in current group chat. If not, will message 'Someone wants me to wake you up'",
-            set: "Sets the nickname for a user",
-            define: "Returns the best definitions for the input word",
-            synonym: "Returns synonyms for the input word",
+            answer: "Answers your question seriously. \ncan answer math questions(integral, derivative, etc)\nSyntax:bro answer {question}\nPS: If you have a legitimate question, I have a legitimate answer",
+            honest: "Unpredictable response. But will be my most honest answers. Guaranteed.\nSyntax:bro honest answer {question}\nCan answer who, where, when, why, how, how much.",
+            search: "Searches facebook users for a closest match to the input name\nSyntax:bro search {name}",
+            kick: "Removes a user from the group chat.\nSyntax:bro kick {name} [duration]\nif there's number after the command, 'bro kick PERSON 5', the person will be kicked for 5 seconds then added back to the chat",
+            add: "Adds a user to the group chat\nSyntax: bro add {name}",
+            wakeUp: "Messages the user 'hey wake up!' 10 times if the user is in current group chat. If not, will message 'Someone wants me to wake you up'\nSyntax: bro wake up {name}",
+            set: "Sets the nickname for a user\nSyntax: bro set {name} nickname {nickname}",
+            define: "Returns the best definitions for the input word\nSyntax: bro define {word}",
+            synonym: "Returns synonyms for the input word\nSyntax: bro synonym {word}",
             greet: "Say hello, hi, hey, etc. to me.\nExample:hi bro, sup bro, wuzzup bro, etc",
             alive: "Is used to check if bot is working",
-            r: "Returns a post from a subreddit.\nExample: bro r/dankmemes",
-            triviaNumber: "Finds a fun fact about a number.\nExample: 'bro trivia number 16'",
-            triviaYear: "Finds a fun fact about a year.\nExample: 'bro trivia year 1266'",
-            triviaDate: "Finds a fun fact about a date.\nExample: 'bro trivia date 10/4' ",
-            triviaMath: "Finds a math fun fact about a number.\nExample: 'bro trivia math 1043'",
-            gened: "Finds easiest geneds based on categories.\nExample: bro gened 2018 fall DSHU,DVUP.\nNote:geneds must be separated by comma only"
+            r: "Returns a post from a subreddit.\nSyntax: bro r/{subreddit}\nExample: 'bro r/dankmemes'",
+            triviaNumber: "Finds a fun fact about a number.\nSyntax: bro trivia number {number}\nExample: 'bro trivia number 16'",
+            triviaYear: "Finds a fun fact about a year.\nSyntax: bro trivia year {year}\nExample: 'bro trivia year 1266'",
+            triviaDate: "Finds a fun fact about a date.\nSyntax: bro trivia date {date}\nExample: 'bro trivia date 10/4' ",
+            triviaMath: "Finds a math fun fact about a number.\nSyntax: bro trivia math {number}\nExample: 'bro trivia math 1043'",
+            gened: "Finds easiest geneds based on categories.\nSyntax: bro gened {year} {season} {gen eds} {number of results to be returned}\nExample: 'bro gened 2018 fall DSHU,DVUP 10'\nNote:geneds must be separated by comma only"
 
         },
         basic: `Hi people of this group chat, I am a facebook chat bot. The commands to use me are
         -bro alive
         -greet me(say hi, etc)
-        -bro answer{question}
-        -bro honest answer{question}
+        -bro answer {question}
+        -bro honest answer {question}
         -bro search {name}
-        -bro gtfo
-        -bro gened {year} {season} {gen eds}
-        -bro kick {name} [duration]
+        -bro gened {year} {season} {gen eds} {number of results to be returned}
+        -bro kick {name} [duration of kick]
         -bro add {name}
         -bro wake up {name}
         -bro set {name} nickname {nickname}
         -bro define {word}
         -bro synonym {word}
-        -bro r/ (returns a post from a subreddit)
+        -bro r/{subreddit}
         -bro trivia number {number}
         -bro trivia year {year}
         -bro trivia math {number}
@@ -239,7 +238,6 @@ module.exports = {
         answer: /bro help answer/i,
         honest: /bro help honest answer/i,
         search: /bro help search/i,
-        gtfo: /bro help gtfo/i,
         kick: /bro help kick/i,
         add: /bro help add/i,
         wakeUp: /bro help wake up/i,

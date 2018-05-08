@@ -67,7 +67,6 @@ login({
         easter(message.body, func.commands.answer, func.triggers.commandExplanation.answer);
         easter(message.body, func.commands.honest, func.triggers.commandExplanation.honest);
         easter(message.body, func.commands.search, func.triggers.commandExplanation.search);
-        easter(message.body, func.commands.gtfo, func.triggers.commandExplanation.gtfo);
         easter(message.body, func.commands.kick, func.triggers.commandExplanation.kick);
         easter(message.body, func.commands.add, func.triggers.commandExplanation.add);
         easter(message.body, func.commands.wakeUp, func.triggers.commandExplanation.wakeUp);
@@ -98,14 +97,15 @@ login({
             }
         }
 
-        if(func.triggers.gened.test(message.body)){//bro gened 2018 fall DSHU,DVUP
+        if(func.triggers.gened.test(message.body)){//bro gened 2018 fall DSHU,DVUP 10
             const args = message.body.split(" ");
             const year = args[2];
             const season = args[3];
             const cat = args[4];
+            const num = args[5];
             const spawn = require("child_process").spawn;
             //python3 parse.py -s fall -y 2018 -c DSHU,DVUP
-            var pythonProcess = spawn('python3',["parse.py", '-s', season, '-y', year, '-c', cat]);
+            var pythonProcess = spawn('python3',["parse.py", '-s', season, '-y', year, '-c', cat, num]);
             pythonProcess.stdout.on('data', (data) => {//data returned from python file
                 console.log(data.toString());
                 api.sendMessage(data.toString(), message.threadID);

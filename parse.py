@@ -4,13 +4,13 @@ import sys
 import re
 
 def main():
-    #python parse.py -s fall -y 2018 -c DSHS,DVUP
+    #python3 parse.py -s fall -y 2018 -c DSHS,DVUP num
     #-s : season, eg. fall, spring, summer, winter
     #-y : year, eg. 2018, 2019, etc
     #-c : gen ed categories, eg. DVUP, DSHS, etc. SEPARATED BY comma
     # if any gen ed is okay, enter all for -c
     argc = len(sys.argv)
-    if argc < 7:
+    if argc < 8:
         print("insufficient arguments...")
         sys.exit()
     else:
@@ -22,7 +22,7 @@ def main():
 
         year = sys.argv[4]
         geneds = sys.argv[6].split(",")
-
+        num = int(sys.argv[7])
         first_gened = geneds[0]
 
 
@@ -71,11 +71,14 @@ def main():
                 students[x] = search.group(2)
             else:
                 continue
+
         print(" ")
         sorted_by_gpa = [(k, gpa[k]) for k in sorted(gpa, key=gpa.get, reverse=True)]
+        i = 0
         for k,v in sorted_by_gpa:
-            print("For class", k + ",\nAverage GPA:", v, "among", students[k],"students\n")
-
+            if i < num:
+                print("For class", k + ",\nAverage GPA:", v, "among", students[k],"students\n")
+            i += 1
         #print(result)
 
 def filtering(classes, geneds):
