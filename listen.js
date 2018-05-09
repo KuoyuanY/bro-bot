@@ -102,7 +102,13 @@ login({
             const year = args[2];
             const season = args[3];
             const cat = args[4];
-            const num = args[5];
+            var num;
+            if(args.length == 6){
+                num = args[5];
+            }else{
+                num = 10;
+                api.sendMessage("No number of results specified, using default value 10.", message.threadID);
+            }
             const spawn = require("child_process").spawn;
             //python3 parse.py -s fall -y 2018 -c DSHU,DVUP
             var pythonProcess = spawn('python3',["parse.py", '-s', season, '-y', year, '-c', cat, num]);

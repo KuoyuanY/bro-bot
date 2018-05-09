@@ -2,6 +2,36 @@ from bs4 import BeautifulSoup
 import urllib.request
 import sys
 import re
+import threading
+
+class planetTerpCourse (threading.Thread):
+    def __init__(self, clas):
+        threading.Thread.__init__(self)
+        self.clas = clas
+
+    def run(self):
+        global gpa
+        global students
+        url = 'https://planetterp.com/course/' + self.clas
+        try:#reading planet terp avg gpa
+            with urllib.request.urlopen(url) as response:
+                html = response.read()
+                html = html.decode("utf8")
+                response.close()
+                search = re.search(r'Average GPA: (.*) between (.*) students', html)
+                if search:
+                    threadLock.acquire()#synchronize update on gpa and students
+                    gpa[self.clas] = search.group(1)
+                    students[self.clas] = search.group(2)
+                    threadLock.release()#release lock
+        except:
+            print("couldn't find course", self.clas, "on planet terp")
+
+
+gpa = {}
+students = {}
+threadLock = threading.Lock()
+
 
 def main():
     #python3 parse.py -s fall -y 2018 -c DSHS,DVUP num
@@ -22,7 +52,11 @@ def main():
 
         year = sys.argv[4]
         geneds = sys.argv[6].split(",")
-        num = int(sys.argv[7])
+        try:
+            num = int(sys.argv[7])
+        except:
+            num = 10
+
         first_gened = geneds[0]
 
 
@@ -49,30 +83,19 @@ def main():
         classes = parsed_html.body.findAll('div', {'class':'course'})
 
         filtered_classes = filtering(classes, geneds)
-        print("finding avg GPA for these filtered classes...")
+        print("threading each filtered class...")
         sys.stdout.flush()
-        gpa = {}
-        students = {}
-        for x in filtered_classes:
-            url = 'https://planetterp.com/course/' + x
-            try:
-                with urllib.request.urlopen(url) as response:
-                    html = response.read()
-                    html = html.decode("utf8")
-                    response.close()
-            except:
-                print("couldn't find course", x, "on planet terp")
-                sys.stdout.flush()
-                continue
+        threads = []
 
-            search = re.search(r'Average GPA: (.*) between (.*) students', html)
-            if search:
-                gpa[x] = search.group(1)
-                students[x] = search.group(2)
-            else:
-                continue
+        for x in filtered_classes:#multithreading
+            thread = planetTerpCourse(x)
+            thread.start()
+            threads.append(thread)
 
-        print(" ")
+        for t in threads:
+            t.join()
+
+
         sorted_by_gpa = [(k, gpa[k]) for k in sorted(gpa, key=gpa.get, reverse=True)]
         i = 0
         for k,v in sorted_by_gpa:

@@ -234,7 +234,7 @@ module.exports = {
         triviaDate: /bro help trivia date/i,
         triviaMath: /bro help trivia math/i,
         greet:/bro help greet me/i,
-        gened:/bro help gened/,
+        gened:/bro help gened/i,
         answer: /bro help answer/i,
         honest: /bro help honest answer/i,
         search: /bro help search/i,
