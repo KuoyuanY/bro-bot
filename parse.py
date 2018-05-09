@@ -42,7 +42,6 @@ def main():
             with urllib.request.urlopen(url) as response:
                 html = response.read()
                 html = html.decode("utf8")
-                response.close()
         except:
             print("Are you sure you entered the year and geneds correctly?\nAre those values valid?")
             sys.exit()
@@ -87,16 +86,16 @@ def planetTerp(clas):
     try:#reading planet terp avg gpa
         with urllib.request.urlopen(url) as response:
             html = response.read()
-            html = html.decode("utf8")
-            response.close()
-            search = re.search(r'Average GPA: (.*) between (.*) students', html)
-            if search:
-                threadLock.acquire()#synchronize update on gpa and students
-                gpa[clas] = search.group(1)
-                students[clas] = search.group(2)
-                threadLock.release()#release lock
     except:
         print("couldn't find course", clas, "on planet terp")
+        return
+    html = html.decode("utf8")
+    search = re.search(r'Average GPA: (.*) between (.*) students', html)
+    if search:
+        threadLock.acquire()#synchronize update on gpa and students
+        gpa[clas] = search.group(1)
+        students[clas] = search.group(2)
+        threadLock.release()#release lock
 
 def check(geneds, clss):
     html = str(clss)
