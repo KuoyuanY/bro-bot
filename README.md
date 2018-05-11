@@ -29,19 +29,19 @@ facebook chat bot that parses messages and react or execute commands from users
 
 First clone the repository:
 ```
-$ git clone https://github.com/yellgreniff/bro-bot.git
+git clone https://github.com/yellgreniff/bro-bot.git
 ```
 Go into bro-bot directory:
 ```
-$ cd bro-bot
+cd bro-bot
 ```
 Make sure Node and Python3 are installed. Install beautifulSoup:
 ```
-$ pip install beautifulsoup4
+pip install beautifulsoup4
 ```
 Install all dependencies:
 ```
-$ npm install
+npm install
 ```
 Go into login.js and enter your email and password:
 ```javascript
@@ -51,7 +51,7 @@ login({email: "YOUR EMAIL", password: "YOUR PASSWORD"}, (err, api) => {
 ```
 Run login.js to generate appstate.json file
 ```
-$ node login.js
+node login.js
 ```
 In listen.js file, change the API keys to your own API keys from Mashape API and Wolfram Alpha API
 ```javascript
@@ -60,6 +60,6 @@ const wolframKey = "wolframKey"
 ```
 Now run:
 ```
-$ node listen.js
+node listen.js
 ```
 Your bot is running!
